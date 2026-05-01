@@ -2,5 +2,162 @@
   "app": {
     "title": "Gungho",
     "welcomeMessage": "Project scaffold is ready. Start building your pages, routes, and services."
+  },
+  "navigation": {
+    "logoAlt": "Gungho Logo",
+    "home": "Home",
+    "about": "About",
+    "ourServices": "Our Services",
+    "eventManagement": "Event Management",
+    "marketingServices": "Marketing Services",
+    "contactUs": "Contact Us"
+  },
+  "footer": {
+    "brandDescription": "Delivering excellence in event management and marketing services. Your success is our mission.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "emails": ["info@gungho.in"],
+    "phoneNumbers": ["+1 (555) 123-4567"],
+    "address": "SECTOR A, POCKET B&C, VASANT KUNJ, NEW DELHI, Delhi, India - 110070",
+    "copyright": "Gungho Services. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy"
+  },
+  "home": {
+    "leftCardTitle": "GUNG HO EVENT MANAGEMENT SERVICES PRIVATE LIMITED",
+    "rightCardTitle": "GUNG HO MARKETING SERVICES PRIVATE LIMITED",
+    "exploreServices": "Explore Services",
+    "exploreServicesCta": "Explore Services →"
+  },
+  "aboutPage": {
+    "title": "About Gungho",
+    "subtitle": "Your trusted partner in creating unforgettable experiences and driving business growth through innovative event management and marketing solutions.",
+    "stats": {
+      "eventsManagedValue": "500+",
+      "eventsManaged": "Events Managed",
+      "happyClientsValue": "200+",
+      "happyClients": "Happy Clients",
+      "yearsExperienceValue": "15+",
+      "yearsExperience": "Years Experience",
+      "teamMembersValue": "50+",
+      "teamMembers": "Team Members"
+    },
+    "ourStoryTitle": "Our Story",
+    "ourStoryParagraph1": "Founded with a vision to transform the event management and marketing landscape, Gungho has grown from a small team of passionate professionals to a leading service provider trusted by businesses across industries.",
+    "ourStoryParagraph2": "We believe that every event tells a story, and every brand has a unique voice. Our mission is to bring these narratives to life through meticulous planning, creative execution, and strategic marketing that resonates with audiences.",
+    "ourStoryParagraph3": "Today, we proudly serve clients ranging from startups to Fortune 500 companies, delivering experiences that inspire, engage, and drive results.",
+    "whyChooseUs": "Why Choose Us?",
+    "whyChooseUsItems": [
+      "Proven track record of successful events and campaigns",
+      "Dedicated team of experienced professionals",
+      "Customized solutions tailored to your needs",
+      "End-to-end service from concept to execution",
+      "Competitive pricing with transparent processes"
+    ],
+    "coreValuesTitle": "Our Core Values",
+    "values": {
+      "missionTitle": "Our Mission",
+      "missionDescription": "To deliver exceptional event management and marketing solutions that exceed expectations and drive measurable results for our clients.",
+      "excellenceTitle": "Excellence",
+      "excellenceDescription": "We are committed to maintaining the highest standards of quality and professionalism in every project we undertake.",
+      "clientFocusedTitle": "Client-Focused",
+      "clientFocusedDescription": "Your success is our priority. We build lasting partnerships based on trust, transparency, and exceptional service delivery.",
+      "innovationTitle": "Innovation",
+      "innovationDescription": "We continuously evolve and embrace new technologies and strategies to keep our clients ahead of the curve."
+    }
+  },
+  "eventManagementPage": {
+    "title": "Gungho Event Management Services",
+    "subtitle": "Creating unforgettable experiences with precision and passion",
+    "services": {
+      "corporateEventsTitle": "Corporate Events",
+      "corporateEventsDescription": "Professional event planning and execution for conferences, seminars, and corporate gatherings.",
+      "teamBuildingTitle": "Team Building Activities",
+      "teamBuildingDescription": "Engaging activities designed to strengthen team bonds and improve collaboration.",
+      "socialEventsTitle": "Social Events",
+      "socialEventsDescription": "Memorable celebrations including weddings, parties, and special occasions.",
+      "productLaunchesTitle": "Product Launches",
+      "productLaunchesDescription": "Strategic event management for successful product introductions and brand activations."
+    },
+    "ctaTitle": "Ready to Plan Your Event?",
+    "ctaSubtitle": "Let's work together to create an exceptional experience",
+    "ctaButton": "Contact Us"
+  },
+  "marketingServicesPage": {
+    "title": "Gungho Marketing Services",
+    "subtitle": "Strategic marketing solutions that drive growth and build lasting connections",
+    "services": {
+      "digitalMarketingTitle": "Digital Marketing",
+      "digitalMarketingDescription": "Comprehensive digital strategies including SEO, SEM, and social media marketing to grow your online presence.",
+      "brandDevelopmentTitle": "Brand Development",
+      "brandDevelopmentDescription": "Build a strong brand identity that resonates with your target audience and stands out in the market.",
+      "marketResearchTitle": "Market Research",
+      "marketResearchDescription": "Data-driven insights and analysis to inform strategic decisions and understand market dynamics.",
+      "contentStrategyTitle": "Content Strategy",
+      "contentStrategyDescription": "Creative content solutions that engage audiences and drive meaningful conversations around your brand."
+    },
+    "ctaTitle": "Let's Grow Your Business Together",
+    "ctaSubtitle": "Partner with us for innovative marketing strategies",
+    "ctaButton": "Get Started"
+  },
+  "contactPage": {
+    "title": "Get In Touch",
+    "subtitle": "Have a question or ready to start your next project? We'd love to hear from you.",
+    "sendMessageTitle": "Send Us a Message",
+    "fields": {
+      "fullName": "Full Name *",
+      "email": "Email Address *",
+      "phone": "Phone Number",
+      "serviceInterested": "Service Interested In *",
+      "message": "Message *"
+    },
+    "placeholders": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1 (555) 000-0000",
+      "service": "Select a service",
+      "message": "Tell us about your project or inquiry..."
+    },
+    "serviceOptions": {
+      "eventManagement": "Event Management",
+      "marketingServices": "Marketing Services",
+      "bothServices": "Both Services",
+      "other": "Other"
+    },
+    "sendMessageButton": "Send Message",
+    "formSubmittedAlert": "Thank you for your message! We will get back to you soon.",
+    "formSubmittedLog": "Form submitted:",
+    "contactInfo": {
+      "emailUs": "Email Us",
+      "emailDetails": ["info@gungho.in"],
+      "callUs": "Call Us",
+      "phoneDetails": ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+      "visitUs": "Visit Us",
+      "visitDetails": ["SECTOR A, POCKET B&C, VASANT KUNJ, NEW DELHI, Delhi, India - 110070"],
+      "businessHours": "Business Hours",
+      "businessHoursDetails": ["Mon - Fri: 9:00 AM - 6:00 PM", "Sat: 10:00 AM - 4:00 PM"],
+      "mapPlaceholder": "Interactive map location",
+      "mapEmbedUrl": "https://www.google.com/maps?q=SECTOR+A,+POCKET+B%26C,+VASANT+KUNJ,+NEW+DELHI,+Delhi,+India+-+110070&output=embed"
+    },
+    "ctaTitle": "Prefer to Schedule a Call?",
+    "ctaSubtitle": "Book a free consultation with our team to discuss your needs in detail",
+    "ctaButton": "Schedule a Meeting"
+  },
+  "seo": {
+    "siteName": "Gung Ho",
+    "defaultTitle": "Gungho | Event Management and Marketing Services",
+    "defaultDescription": "Gungho delivers professional event management and marketing services, including corporate events, digital marketing, brand strategy, and growth campaigns.",
+    "defaultKeywords": "Gungho, event management, marketing services, corporate events, digital marketing, brand strategy",
+    "homeTitle": "Gungho | Event Management and Marketing Services",
+    "homeDescription": "Explore Gungho's event management and marketing solutions designed to create memorable experiences and drive measurable business growth.",
+    "aboutTitle": "About Gungho | Trusted Event and Marketing Partner",
+    "aboutDescription": "Learn about Gungho's mission, values, and experience in delivering high-impact event management and marketing services.",
+    "eventManagementTitle": "Event Management Services | Gungho",
+    "eventManagementDescription": "Discover Gungho event management services for corporate events, team building, social events, and product launches.",
+    "marketingServicesTitle": "Marketing Services | Gungho",
+    "marketingServicesDescription": "Discover Gungho marketing services including digital marketing, brand development, market research, and content strategy.",
+    "contactTitle": "Contact Gungho | Event and Marketing Consultation",
+    "contactDescription": "Contact Gungho to discuss your next event or marketing project and schedule a consultation with our team."
   }
 }
