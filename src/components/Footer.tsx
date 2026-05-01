@@ -105,13 +105,22 @@ export default function Footer() {
             © {new Date().getFullYear()} {en.footer.copyright}
           </p>
           <div className="flex gap-6 text-sm">
-            <button className="text-white/40 hover:text-primary transition-colors">
+            <button
+              onClick={() => navigate('/privacy-policy')}
+              className="text-white/40 hover:text-primary transition-colors"
+            >
               {en.footer.privacyPolicy}
             </button>
-            <button className="text-white/40 hover:text-primary transition-colors">
+            <button
+              onClick={() => navigate('/terms-of-service')}
+              className="text-white/40 hover:text-primary transition-colors"
+            >
               {en.footer.termsOfService}
             </button>
-            <button className="text-white/40 hover:text-primary transition-colors">
+            <button
+              onClick={() => navigate('/cookie-policy')}
+              className="text-white/40 hover:text-primary transition-colors"
+            >
               {en.footer.cookiePolicy}
             </button>
           </div>

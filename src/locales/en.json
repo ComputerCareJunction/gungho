@@ -144,6 +144,94 @@
     "ctaSubtitle": "Book a free consultation with our team to discuss your needs in detail",
     "ctaButton": "Schedule a Meeting"
   },
+  "legalPages": {
+    "effectiveDateLabel": "Effective Date",
+    "lastUpdatedLabel": "Last Updated",
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "intro": "This Privacy Policy explains how Gung Ho collects, uses, shares, and protects your personal information when you use our website and services.",
+      "effectiveDate": "May 1, 2026",
+      "lastUpdated": "May 1, 2026",
+      "sections": [
+        {
+          "heading": "Information We Collect",
+          "content": "We may collect personal details such as your name, email address, phone number, and service requirements when you submit forms or contact us."
+        },
+        {
+          "heading": "How We Use Information",
+          "content": "We use your information to respond to inquiries, provide requested services, improve our website experience, and communicate important updates."
+        },
+        {
+          "heading": "Information Sharing",
+          "content": "We do not sell personal information. We may share data with trusted service providers who support website operations or service delivery under confidentiality obligations."
+        },
+        {
+          "heading": "Data Security",
+          "content": "We implement reasonable technical and organizational safeguards to protect personal information from unauthorized access, disclosure, or misuse."
+        },
+        {
+          "heading": "Your Rights",
+          "content": "You may request access, correction, or deletion of your personal information by contacting us at info@gungho.in."
+        }
+      ]
+    },
+    "termsOfService": {
+      "title": "Terms of Service",
+      "intro": "These Terms of Service govern your access to and use of the Gung Ho website and related services.",
+      "effectiveDate": "May 1, 2026",
+      "lastUpdated": "May 1, 2026",
+      "sections": [
+        {
+          "heading": "Use of Website",
+          "content": "You agree to use this website lawfully and not to engage in activity that disrupts website operations or violates applicable regulations."
+        },
+        {
+          "heading": "Service Information",
+          "content": "All service descriptions on this website are for informational purposes and may be updated, modified, or discontinued without prior notice."
+        },
+        {
+          "heading": "Intellectual Property",
+          "content": "Website content, including branding, text, graphics, and design elements, is owned by Gung Ho or used with permission and may not be copied without authorization."
+        },
+        {
+          "heading": "Limitation of Liability",
+          "content": "To the fullest extent permitted by law, Gung Ho is not liable for indirect, incidental, or consequential damages arising from website use."
+        },
+        {
+          "heading": "Governing Law",
+          "content": "These terms are governed by applicable laws in India. Disputes shall be subject to the jurisdiction of competent courts in New Delhi."
+        }
+      ]
+    },
+    "cookiePolicy": {
+      "title": "Cookie Policy",
+      "intro": "This Cookie Policy explains how Gung Ho uses cookies and similar technologies on this website.",
+      "effectiveDate": "May 1, 2026",
+      "lastUpdated": "May 1, 2026",
+      "sections": [
+        {
+          "heading": "What Are Cookies",
+          "content": "Cookies are small text files stored on your device to help websites remember preferences and improve user experience."
+        },
+        {
+          "heading": "How We Use Cookies",
+          "content": "We use cookies to support core site functionality, understand traffic patterns, and improve website performance."
+        },
+        {
+          "heading": "Cookie Types",
+          "content": "Our website may use essential cookies for operation, analytics cookies for usage insights, and preference cookies to remember your settings."
+        },
+        {
+          "heading": "Managing Cookies",
+          "content": "You can control or disable cookies through your browser settings. Disabling certain cookies may impact website functionality."
+        },
+        {
+          "heading": "Policy Updates",
+          "content": "We may update this policy to reflect legal or operational changes. Continued use of the website indicates acceptance of updated terms."
+        }
+      ]
+    }
+  },
   "seo": {
     "siteName": "Gung Ho",
     "defaultTitle": "Gungho | Event Management and Marketing Services",
