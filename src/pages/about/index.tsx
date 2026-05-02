@@ -72,33 +72,71 @@ export default function About() {
       </div>
 
       {/* Story Section */}
-      <div className="max-w-7xl mx-auto px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-6">{en.aboutPage.ourStoryTitle}</h2>
-            <p className="text-white/70 mb-4">
-              {en.aboutPage.ourStoryParagraph1}
-            </p>
-            <p className="text-white/70 mb-4">
-              {en.aboutPage.ourStoryParagraph2}
-            </p>
-            <p className="text-white/70">
-              {en.aboutPage.ourStoryParagraph3}
-            </p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-8 border border-primary/30">
-            <h3 className="text-2xl font-bold text-white mb-4">{en.aboutPage.whyChooseUs}</h3>
-            <ul className="space-y-3 text-white/70">
-              {en.aboutPage.whyChooseUsItems.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="text-primary mt-1">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+      <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          aria-hidden
+        >
+          <div className="absolute -right-24 top-0 h-96 w-96 rounded-full bg-primary/25 blur-[100px]" />
+          <div className="absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-sky-500/10 blur-[90px]" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-12 lg:items-start">
+            <div className="lg:col-span-7">
+              <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-10 lg:p-12 shadow-2xl shadow-black/20 backdrop-blur-sm">
+                <div
+                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+                  aria-hidden
+                />
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/90">
+                  {en.aboutPage.ourStoryEyebrow}
+                </p>
+                <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                  {en.aboutPage.ourStoryTitle}
+                </h2>
+                <div className="mt-10 space-y-8">
+                  <p className="text-lg leading-relaxed text-white/80 first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:leading-none sm:first-letter:text-6xl">
+                    {en.aboutPage.ourStoryParagraph1}
+                  </p>
+                  <div className="relative pl-5 sm:pl-6">
+                    <span
+                      className="absolute left-0 top-1 bottom-1 w-1 rounded-full bg-gradient-to-b from-primary via-primary/60 to-primary/20"
+                      aria-hidden
+                    />
+                    <p className="text-base sm:text-lg leading-relaxed text-white/75">
+                      {en.aboutPage.ourStoryParagraph2}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <aside className="lg:col-span-5 lg:sticky lg:top-28">
+              <div className="relative overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-primary/15 via-slate-900/60 to-slate-900/90 p-8 sm:p-9">
+                <div
+                  className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-primary/20 blur-2xl"
+                  aria-hidden
+                />
+                <h3 className="relative text-2xl font-bold text-white">
+                  {en.aboutPage.whyChooseUs}
+                </h3>
+                <ul className="relative mt-6 space-y-4 text-white/75">
+                  {en.aboutPage.whyChooseUsItems.map((item) => (
+                    <li key={item} className="flex gap-3 text-sm sm:text-base leading-snug">
+                      <span
+                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary"
+                        aria-hidden
+                      >
+                        ✓
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Values Section */}
       <div className="bg-slate-900/50 py-20">

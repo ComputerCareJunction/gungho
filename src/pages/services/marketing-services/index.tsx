@@ -1,30 +1,22 @@
-import { TrendingUp, Megaphone, BarChart3, Lightbulb } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Eye,
+  Handshake,
+  Sprout,
+  Radio,
+  Layers,
+  Megaphone,
+  MonitorSmartphone,
+  Store,
+  PartyPopper,
+  Clapperboard
+} from 'lucide-react';
 import en from '../../../locales/en.json';
 import Seo from '../../../components/Seo';
 
 export default function MarketingServices() {
-  const services = [
-    {
-      icon: <TrendingUp className="w-12 h-12" />,
-      title: en.marketingServicesPage.services.digitalMarketingTitle,
-      description: en.marketingServicesPage.services.digitalMarketingDescription
-    },
-    {
-      icon: <Megaphone className="w-12 h-12" />,
-      title: en.marketingServicesPage.services.brandDevelopmentTitle,
-      description: en.marketingServicesPage.services.brandDevelopmentDescription
-    },
-    {
-      icon: <BarChart3 className="w-12 h-12" />,
-      title: en.marketingServicesPage.services.marketResearchTitle,
-      description: en.marketingServicesPage.services.marketResearchDescription
-    },
-    {
-      icon: <Lightbulb className="w-12 h-12" />,
-      title: en.marketingServicesPage.services.contentStrategyTitle,
-      description: en.marketingServicesPage.services.contentStrategyDescription
-    }
-  ];
+  const navigate = useNavigate();
+  const { sections } = en.marketingServicesPage;
 
   return (
     <>
@@ -34,48 +26,257 @@ export default function MarketingServices() {
         path="/marketing-services"
       />
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-7xl mx-auto px-8 py-12">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 pb-20">
+          <header className="text-center mb-14 sm:mb-16">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+              {en.marketingServicesPage.title}
+            </h1>
+            <p className="text-lg sm:text-xl text-white/75 max-w-3xl mx-auto leading-relaxed">
+              {en.marketingServicesPage.subtitle}
+            </p>
+          </header>
 
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-white mb-4">
-            {en.marketingServicesPage.title}
-          </h1>
-          <p className="text-xl text-white/70">
-            {en.marketingServicesPage.subtitle}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="group bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 rounded-2xl p-8 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/10"
-            >
-              <div className="text-primary mb-4 transition-transform duration-300 group-hover:scale-110">
-                {service.icon}
+          <div className="space-y-10">
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Eye className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.brandVisibility.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.brandVisibility.lead}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                {service.title}
-              </h3>
-              <p className="text-white/70">
-                {service.description}
-              </p>
-            </div>
-          ))}
-        </div>
+              <ul className="space-y-4 pl-0 sm:pl-14 list-none">
+                {sections.brandVisibility.items.map((item) => (
+                  <li
+                    key={item.title}
+                    className="border-l-2 border-primary/40 pl-4 sm:pl-5"
+                  >
+                    <span className="font-semibold text-white">{item.title}</span>
+                    <span className="text-white/60"> — </span>
+                    <span className="text-white/75">{item.description}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-        <div className="mt-16 bg-gradient-to-r from-slate-700 to-slate-600 rounded-2xl p-8 text-center border border-primary/30">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            {en.marketingServicesPage.ctaTitle}
-          </h2>
-          <p className="text-white/90 mb-6">
-            {en.marketingServicesPage.ctaSubtitle}
-          </p>
-          <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-            {en.marketingServicesPage.ctaButton}
-          </button>
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Handshake className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.tradeActivation.heading}
+                  </h2>
+                  <p className="mt-3 text-white/75 leading-relaxed">
+                    {sections.tradeActivation.body}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Sprout className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.businessIncubation.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.businessIncubation.lead}
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-4 pl-0 sm:pl-14 list-none">
+                {sections.businessIncubation.items.map((item) => (
+                  <li
+                    key={item.title}
+                    className="border-l-2 border-primary/40 pl-4 sm:pl-5"
+                  >
+                    <span className="font-semibold text-white">{item.title}</span>
+                    <span className="text-white/60"> — </span>
+                    <span className="text-white/75">{item.description}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Radio className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.mediaBuying.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.mediaBuying.lead}
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-3 pl-0 sm:pl-14 list-disc list-inside marker:text-primary text-white/75">
+                {sections.mediaBuying.bullets.map((line) => (
+                  <li key={line} className="leading-relaxed pl-1">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/10 to-slate-800/50 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/20 p-3 text-primary shrink-0">
+                  <Layers className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.integratedMarketing.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.integratedMarketing.lead}
+                  </p>
+                </div>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-3 pl-0 sm:pl-14">
+                {sections.integratedMarketing.items.map((line) => (
+                  <li
+                    key={line}
+                    className="flex items-center gap-2 rounded-lg bg-slate-900/40 px-4 py-2.5 text-white/90 text-sm sm:text-base border border-slate-600/30"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Megaphone className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.marketingServices.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.marketingServices.lead}
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-3 pl-0 sm:pl-14 list-disc list-inside marker:text-primary text-white/75">
+                {sections.marketingServices.items.map((line) => (
+                  <li key={line} className="leading-relaxed pl-1">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <MonitorSmartphone className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.digitalMarketing.heading}
+                  </h2>
+                  <p className="mt-3 text-white/75 leading-relaxed">
+                    {sections.digitalMarketing.body}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Store className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.retailDesign.heading}
+                  </h2>
+                  <p className="mt-3 text-white/75 leading-relaxed">
+                    {sections.retailDesign.body}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <PartyPopper className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.eventsExhibitions.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.eventsExhibitions.lead}
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-3 pl-0 sm:pl-14 list-disc list-inside marker:text-primary text-white/75">
+                {sections.eventsExhibitions.items.map((line) => (
+                  <li key={line} className="leading-relaxed pl-1">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
+                  <Clapperboard className="w-7 h-7" />
+                </div>
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-white">
+                    {sections.contentCuration.heading}
+                  </h2>
+                  <p className="mt-2 text-white/70 leading-relaxed">
+                    {sections.contentCuration.lead}
+                  </p>
+                </div>
+              </div>
+              <ul className="space-y-3 pl-0 sm:pl-14 list-disc list-inside marker:text-primary text-white/75">
+                {sections.contentCuration.items.map((line) => (
+                  <li key={line} className="leading-relaxed pl-1">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+
+          <div className="mt-14 rounded-2xl bg-gradient-to-r from-slate-700 to-slate-600 p-8 text-center border border-primary/30">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+              {en.marketingServicesPage.ctaTitle}
+            </h2>
+            <p className="text-white/90 mb-6 max-w-2xl mx-auto">
+              {en.marketingServicesPage.ctaSubtitle}
+            </p>
+            <button
+              type="button"
+              onClick={() => navigate('/contact')}
+              className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            >
+              {en.marketingServicesPage.ctaButton}
+            </button>
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

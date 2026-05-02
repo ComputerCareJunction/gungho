@@ -28,7 +28,18 @@
     "leftCardTitle": "GUNG HO EVENT MANAGEMENT SERVICES PRIVATE LIMITED",
     "rightCardTitle": "GUNG HO MARKETING SERVICES PRIVATE LIMITED",
     "exploreServices": "Explore Services",
-    "exploreServicesCta": "Explore Services →"
+    "exploreServicesCta": "Explore Services →",
+    "clients": {
+      "title": "Our Clients",
+      "subtitle": "Trusted by leading brands worldwide",
+      "columns": [
+        { "id": "tech", "category": "Technology & software" },
+        { "id": "institutions", "category": "Institutions & trade" },
+        { "id": "automotive", "category": "Automotive & industrial" },
+        { "id": "healthcare", "category": "Healthcare & brands" },
+        { "id": "consumer", "category": "Consumer & research" }
+      ]
+    }
   },
   "aboutPage": {
     "title": "About Gungho",
@@ -44,9 +55,9 @@
       "teamMembers": "Team Members"
     },
     "ourStoryTitle": "Our Story",
-    "ourStoryParagraph1": "Founded with a vision to transform the event management and marketing landscape, Gungho has grown from a small team of passionate professionals to a leading service provider trusted by businesses across industries.",
-    "ourStoryParagraph2": "We believe that every event tells a story, and every brand has a unique voice. Our mission is to bring these narratives to life through meticulous planning, creative execution, and strategic marketing that resonates with audiences.",
-    "ourStoryParagraph3": "Today, we proudly serve clients ranging from startups to Fortune 500 companies, delivering experiences that inspire, engage, and drive results.",
+    "ourStoryEyebrow": "Our journey",
+    "ourStoryParagraph1": "Over the years, we have grown and evolved, expanding our services to meet the changing needs of modern businesses. Throughout this journey, our focus has remained consistent—strengthening our infrastructure and enhancing our in-house capabilities.",
+    "ourStoryParagraph2": "We have continuously invested in capacity building, process optimization, and talent acquisition, enabling us to deliver high-quality, scalable, and result-driven marketing solutions to our clients.",
     "whyChooseUs": "Why Choose Us?",
     "whyChooseUsItems": [
       "Proven track record of successful events and campaigns",
@@ -85,21 +96,114 @@
     "ctaButton": "Contact Us"
   },
   "marketingServicesPage": {
-    "title": "Gungho Marketing Services",
-    "subtitle": "Strategic marketing solutions that drive growth and build lasting connections",
-    "services": {
-      "digitalMarketingTitle": "Digital Marketing",
-      "digitalMarketingDescription": "Comprehensive digital strategies including SEO, SEM, and social media marketing to grow your online presence.",
-      "brandDevelopmentTitle": "Brand Development",
-      "brandDevelopmentDescription": "Build a strong brand identity that resonates with your target audience and stands out in the market.",
-      "marketResearchTitle": "Market Research",
-      "marketResearchDescription": "Data-driven insights and analysis to inform strategic decisions and understand market dynamics.",
-      "contentStrategyTitle": "Content Strategy",
-      "contentStrategyDescription": "Creative content solutions that engage audiences and drive meaningful conversations around your brand."
+    "title": "Gungho Marketing Services Pvt. Ltd.",
+    "subtitle": "We help brands grow, scale, and stand out with result-driven marketing solutions tailored to modern business needs.",
+    "sections": {
+      "brandVisibility": {
+        "heading": "1. Brand Visibility",
+        "lead": "We enhance your brand presence across multiple touchpoints to ensure maximum impact:",
+        "items": [
+          {
+            "title": "In-shop Branding",
+            "description": "Engaging retail displays and in-store branding to influence purchase decisions"
+          },
+          {
+            "title": "Outshop Branding",
+            "description": "Outdoor advertising and visual campaigns to boost brand recall"
+          },
+          {
+            "title": "Office Space Branding",
+            "description": "Creative workspace branding that reflects your brand identity"
+          }
+        ]
+      },
+      "tradeActivation": {
+        "heading": "2. Trade Activation & Marketing Initiatives",
+        "body": "We design and execute innovative trade marketing strategies that drive customer engagement and sales. Our initiatives focus on creating meaningful interactions between brands, retailers, and end consumers."
+      },
+      "businessIncubation": {
+        "heading": "3. Business Incubation & Marketing Services",
+        "lead": "We support businesses from idea to execution with strategic guidance:",
+        "items": [
+          {
+            "title": "Market Research",
+            "description": "In-depth analysis to understand market trends, competition, and customer behavior"
+          },
+          {
+            "title": "Go-To-Market Strategy",
+            "description": "Structured planning to successfully launch and position your product or service"
+          },
+          {
+            "title": "New Business Market Research",
+            "description": "Identifying opportunities and validating business ideas for sustainable growth"
+          }
+        ]
+      },
+      "mediaBuying": {
+        "heading": "4. Media Buying & Media Planning",
+        "lead": "We optimize your marketing investments with data-driven media strategies:",
+        "bullets": [
+          "Strategic media planning across digital and traditional platforms",
+          "Cost-effective media buying to maximize reach and ROI",
+          "Performance tracking and optimization for better results"
+        ]
+      },
+      "integratedMarketing": {
+        "heading": "Integrated Marketing Services",
+        "lead": "We provide end-to-end solutions to help brands attract, engage, and retain their audience:",
+        "items": [
+          "Audience Acquisition",
+          "Audience Engagement",
+          "Program & Incentive Management",
+          "RSVP & Response Management",
+          "Webinars & Virtual Events",
+          "Marketing Services"
+        ]
+      },
+      "marketingServices": {
+        "heading": "Marketing Services",
+        "lead": "Strategic and creative marketing to build and grow your brand:",
+        "items": [
+          "Channel-specific social media services",
+          "Strategy Planning",
+          "Account/Profile Creation & Branding",
+          "Content Creation & Publishing",
+          "Campaign & Community Management"
+        ]
+      },
+      "digitalMarketing": {
+        "heading": "Digital Marketing Services",
+        "body": "Data-driven digital strategies to enhance your online presence and performance across platforms."
+      },
+      "retailDesign": {
+        "heading": "Retail Design",
+        "body": "Innovative and impactful retail design solutions that elevate brand visibility and customer experience."
+      },
+      "eventsExhibitions": {
+        "heading": "Events & Exhibitions",
+        "lead": "We design and manage memorable experiences that connect brands with their audience:",
+        "items": [
+          "Conferences",
+          "MICE (Domestic & International)",
+          "Hackathons & Workshops",
+          "Offsites & Reward Programs"
+        ]
+      },
+      "contentCuration": {
+        "heading": "Content Curation",
+        "lead": "Creative storytelling and production to bring your brand to life:",
+        "items": [
+          "Audio-visual concept & design",
+          "Exhibition stalls & trade shows",
+          "Branded content development",
+          "Technology solutions",
+          "Shoot & production"
+        ]
+      }
     },
     "ctaTitle": "Let's Grow Your Business Together",
-    "ctaSubtitle": "Partner with us for innovative marketing strategies",
-    "ctaButton": "Get Started"
+    "ctaSubtitle": "Partner with us for innovative marketing strategies tailored to your goals.",
+    "ctaButton": "Contact Us"
   },
   "contactPage": {
     "title": "Get In Touch",
@@ -243,8 +347,8 @@
     "aboutDescription": "Learn about Gungho's mission, values, and experience in delivering high-impact event management and marketing services.",
     "eventManagementTitle": "Event Management Services | Gungho",
     "eventManagementDescription": "Discover Gungho event management services for corporate events, team building, social events, and product launches.",
-    "marketingServicesTitle": "Marketing Services | Gungho",
-    "marketingServicesDescription": "Discover Gungho marketing services including digital marketing, brand development, market research, and content strategy.",
+    "marketingServicesTitle": "Gungho Marketing Services Pvt. Ltd. | Brand, Trade, Media & Integrated Marketing",
+    "marketingServicesDescription": "Gungho Marketing Services Pvt. Ltd. offers brand visibility, trade activation, business incubation, media planning and buying, integrated marketing, digital marketing, retail design, events, and content curation.",
     "contactTitle": "Contact Gungho | Event and Marketing Consultation",
     "contactDescription": "Contact Gungho to discuss your next event or marketing project and schedule a consultation with our team."
   }

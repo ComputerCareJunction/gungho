@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/gungho-logo.png';
 import en from '../../locales/en.json';
 import Seo from '../../components/Seo';
+import HomeClientele from '../../components/HomeClientele';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ export default function HomePage() {
         description={en.seo.homeDescription}
         path="/"
       />
-      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="w-full max-w-7xl px-8 flex items-center justify-between gap-8">
+      <div className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 py-12 sm:py-14">
+        <div className="flex w-full max-w-7xl flex-col items-stretch gap-8 px-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         {/* Left Side - Event Management Button */}
         <button
           onClick={() => navigate('/event-management')}
@@ -34,7 +35,7 @@ export default function HomePage() {
         </button>
 
         {/* Center - Logo */}
-        <div className="flex-shrink-0">
+        <div className="mx-auto flex-shrink-0 lg:mx-0">
           <div className="bg-white rounded-3xl p-8 shadow-2xl">
             <img
               src={logo}
@@ -63,6 +64,7 @@ export default function HomePage() {
         </button>
         </div>
       </div>
+      <HomeClientele />
     </>
   );
 }
