@@ -1,3 +1,23 @@
+/* Site-wide discouragement of selection / image drag (paired with ContentProtection.tsx) */
+body.content-protection {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body.content-protection input,
+body.content-protection textarea,
+body.content-protection select,
+body.content-protection [contenteditable='true'],
+body.content-protection [data-allow-copy] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+body.content-protection img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 /* Home hero decorative motion (used by src/pages/home/index.tsx) */
 @keyframes home-float {
   0%,
