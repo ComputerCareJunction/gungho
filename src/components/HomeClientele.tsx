@@ -14,32 +14,30 @@ function faviconUrl(domain: string) {
 
 function ClientLogoCard({ entry }: { entry: ClienteleEntry }) {
   const [imgError, setImgError] = useState(false);
+  const imgSrc = entry.logo ?? faviconUrl(entry.domain);
 
   return (
     <a
       href={entry.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative isolate flex w-[13.5rem] shrink-0 flex-col overflow-hidden rounded-2xl border border-primary/25 bg-gradient-to-b from-slate-800 via-slate-800/98 to-slate-950/90 p-5 outline-none ring-offset-2 ring-offset-slate-950 transition duration-300 ease-out hover:-translate-y-1.5 hover:border-primary/55 focus-visible:ring-2 focus-visible:ring-primary sm:w-60 md:w-64
-        shadow-[0_2px_8px_-2px_rgba(0,0,0,0.5),0_12px_40px_-10px_rgba(249,115,22,0.18),0_0_0_1px_rgba(249,115,22,0.12)_inset]
-        hover:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.45),0_16px_48px_-8px_rgba(249,115,22,0.32),0_0_32px_-8px_rgba(249,115,22,0.25),0_0_0_1px_rgba(249,115,22,0.2)_inset]
-        before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-gradient-to-br before:from-primary/10 before:via-transparent before:to-transparent before:opacity-60 before:transition-opacity before:content-[''] hover:before:opacity-100"
+      className="group relative isolate flex w-[13.5rem] shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-slate-800 to-slate-900/95 p-5 shadow-lg outline-none ring-offset-2 ring-offset-slate-900 transition-[box-shadow,border-color] duration-300 ease-out hover:border-white/30 hover:from-slate-700 hover:to-slate-800 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.14),0_0_40px_-8px_rgba(249,115,22,0.2)] focus-visible:ring-2 focus-visible:ring-white/40 sm:w-60 md:w-64"
       aria-label={`${entry.name}, opens in a new tab`}
     >
-      <div className="relative z-[1] flex h-32 items-center justify-center rounded-xl bg-white p-5 shadow-[inset_0_1px_4px_rgba(0,0,0,0.06),0_1px_0_rgba(255,255,255,0.9)_inset] ring-1 ring-slate-200/80 transition-shadow duration-300 group-hover:shadow-[inset_0_1px_4px_rgba(0,0,0,0.06),0_0_0_3px_rgba(249,115,22,0.15),0_8px_24px_-6px_rgba(249,115,22,0.2)] sm:h-36">
+      <div className="relative z-[1] grid h-32 grid-cols-1 grid-rows-1 overflow-hidden rounded-xl bg-white p-2 shadow-[inset_0_1px_4px_rgba(0,0,0,0.06)] ring-1 ring-slate-200/80 transition-[box-shadow,ring-color] duration-300 group-hover:shadow-[inset_0_1px_4px_rgba(0,0,0,0.05),0_6px_24px_-4px_rgba(0,0,0,0.18)] group-hover:ring-white/50 sm:h-36 sm:p-2.5">
         {!imgError ? (
           <img
-            src={faviconUrl(entry.domain)}
+            src={imgSrc}
             alt=""
-            width={72}
-            height={72}
+            width={160}
+            height={160}
             loading="lazy"
             decoding="async"
-            className="h-[4.25rem] w-[4.25rem] object-contain sm:h-20 sm:w-20"
+            className="col-start-1 row-start-1 h-full w-full min-h-0 min-w-0 object-contain"
             onError={() => setImgError(true)}
           />
         ) : (
-          <span className="select-none text-base font-bold uppercase tracking-wide text-slate-500">
+          <span className="col-start-1 row-start-1 select-none self-center justify-self-center text-base font-bold uppercase tracking-wide text-slate-500">
             {entry.name
               .split(/\s+/)
               .slice(0, 2)
@@ -51,7 +49,6 @@ function ClientLogoCard({ entry }: { entry: ClienteleEntry }) {
       <p className="relative z-[1] mt-4 line-clamp-2 min-h-[3rem] text-center text-base font-semibold leading-snug text-white sm:text-lg">
         {entry.name}
       </p>
-      <div className="relative z-[1] mt-auto h-1 w-full rounded-full bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-70 transition-all duration-300 group-hover:via-primary group-hover:opacity-100 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.65)]" />
     </a>
   );
 }
@@ -162,49 +159,31 @@ export default function HomeClientele() {
   };
 
   const arrowClass =
-    'pointer-events-auto z-20 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-600 bg-slate-950/90 text-white shadow-lg backdrop-blur-sm transition hover:border-primary hover:bg-slate-900 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:pointer-events-none disabled:opacity-30';
+    'pointer-events-auto z-20 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-slate-950/70 text-white shadow-lg backdrop-blur-md transition hover:border-primary hover:bg-slate-900/90 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 disabled:pointer-events-none disabled:opacity-30';
 
   return (
     <section
-      className="relative overflow-hidden border-t border-slate-800/80 bg-slate-950 text-white"
+      className="relative overflow-hidden border-t border-white/10 bg-transparent text-white"
       aria-labelledby="home-clientele-heading"
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
-          backgroundSize: '48px 48px'
-        }}
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-primary/10 blur-[100px]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-24 top-0 h-64 w-64 rounded-full bg-primary/5 blur-[90px]"
-        aria-hidden
-      />
-
-      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-16 text-center sm:px-8 sm:pb-24 sm:pt-20">
+      <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-20 text-center sm:px-8 sm:pb-32 sm:pt-28 md:pb-36 md:pt-32">
         <h2
           id="home-clientele-heading"
           className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
         >
           {c.title}
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 sm:text-base">
+        <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 sm:mt-4 sm:text-base">
           {c.subtitle}
         </p>
 
-        <div className="relative mt-12 sm:mt-14">
+        <div className="relative mt-16 sm:mt-24">
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-950 to-transparent sm:w-20"
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-950/80 via-slate-950/25 to-transparent sm:w-20"
             aria-hidden
           />
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-950 to-transparent sm:w-20"
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-950/80 via-slate-950/25 to-transparent sm:w-20"
             aria-hidden
           />
 
@@ -231,7 +210,7 @@ export default function HomeClientele() {
             ref={scrollerRef}
             role="region"
             aria-label="Client logos. Auto-scrolls horizontally; pauses while the pointer is over the cards, while dragging, when a card is focused, or briefly after using the arrows."
-            className="flex justify-start gap-5 overflow-x-auto scroll-auto px-14 pb-2 pt-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-7 sm:px-16 [&::-webkit-scrollbar]:hidden"
+            className="flex justify-start gap-5 overflow-x-auto overflow-y-visible scroll-auto px-14 py-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-7 sm:px-16 [&::-webkit-scrollbar]:hidden"
             onMouseEnter={() => {
               hoverPausedRef.current = true;
             }}

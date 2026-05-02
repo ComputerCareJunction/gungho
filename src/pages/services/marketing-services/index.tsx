@@ -9,14 +9,41 @@ import {
   MonitorSmartphone,
   Store,
   PartyPopper,
-  Clapperboard
+  Clapperboard,
+  Building2,
+  Signpost
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import en from '../../../locales/en.json';
 import Seo from '../../../components/Seo';
+import BrandVisibilityCard from '../../../components/BrandVisibilityCard';
+import { previewImageForBrandSlug } from '../../../data/brandVisibilityPreviews';
+import liquorSegmentImg from '../../../assets/images/liquor-segment.png';
+
+type BrandVisibilityItem = (typeof en.marketingServicesPage.sections.brandVisibility.items)[number];
+
+function isBrandDetailItem(item: BrandVisibilityItem): item is BrandVisibilityItem & { detailSlug: string } {
+  return 'detailSlug' in item && typeof (item as { detailSlug?: string }).detailSlug === 'string';
+}
+
+function iconForBrandSlug(slug: string): LucideIcon {
+  switch (slug) {
+    case 'in-shop-branding':
+      return Store;
+    case 'outshop-branding':
+      return Signpost;
+    case 'office-space-branding':
+      return Building2;
+    default:
+      return Store;
+  }
+}
 
 export default function MarketingServices() {
   const navigate = useNavigate();
   const { sections } = en.marketingServicesPage;
+  const brandVisibility = sections.brandVisibility;
+  const brandDetailCopy = en.marketingServicesPage.brandVisibilityDetail;
 
   return (
     <>
@@ -44,40 +71,57 @@ export default function MarketingServices() {
                 </div>
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold text-white">
-                    {sections.brandVisibility.heading}
+                    {brandVisibility.heading}
                   </h2>
                   <p className="mt-2 text-white/70 leading-relaxed">
-                    {sections.brandVisibility.lead}
+                    {brandVisibility.lead}
                   </p>
                 </div>
               </div>
-              <ul className="space-y-4 pl-0 sm:pl-14 list-none">
-                {sections.brandVisibility.items.map((item) => (
-                  <li
-                    key={item.title}
-                    className="border-l-2 border-primary/40 pl-4 sm:pl-5"
-                  >
-                    <span className="font-semibold text-white">{item.title}</span>
-                    <span className="text-white/60"> — </span>
-                    <span className="text-white/75">{item.description}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-2 flex flex-col gap-4 sm:pl-14">
+                {brandVisibility.items
+                  .filter(isBrandDetailItem)
+                  .map((item) => (
+                    <BrandVisibilityCard
+                      key={item.detailSlug}
+                      title={item.title}
+                      description={item.description}
+                      icon={iconForBrandSlug(item.detailSlug)}
+                      previewSrc={previewImageForBrandSlug(item.detailSlug)}
+                      exploreLabel={brandDetailCopy.exploreLabel}
+                      onClick={() => navigate(`/marketing-services/${item.detailSlug}`)}
+                    />
+                  ))}
+              </div>
             </section>
 
             <section className="rounded-2xl border border-slate-600/50 bg-gradient-to-br from-slate-700/40 to-slate-800/40 p-6 sm:p-8">
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 mb-5">
                 <div className="rounded-xl bg-primary/15 p-3 text-primary shrink-0">
                   <Handshake className="w-7 h-7" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <h2 className="text-xl sm:text-2xl font-bold text-white">
                     {sections.tradeActivation.heading}
                   </h2>
-                  <p className="mt-3 text-white/75 leading-relaxed">
+                  <p className="mt-2 text-white/70 leading-relaxed">
                     {sections.tradeActivation.body}
                   </p>
                 </div>
+              </div>
+              <div className="mt-2 sm:pl-14">
+                <BrandVisibilityCard
+                  title={sections.tradeActivation.heading}
+                  description={sections.tradeActivation.body}
+                  icon={Handshake}
+                  previewSrc={liquorSegmentImg}
+                  exploreLabel={brandDetailCopy.exploreLabel}
+                  variant="mediaOnly"
+                  highlightHeading={sections.tradeActivation.liquorExpertise.title}
+                  highlightPoints={sections.tradeActivation.cardHighlightPoints}
+                  highlightImageAlt={sections.tradeActivation.cardLiquorSegmentImageAlt}
+                  onClick={() => navigate('/marketing-services/trade-activation')}
+                />
               </div>
             </section>
 

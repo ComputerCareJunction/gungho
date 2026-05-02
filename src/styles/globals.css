@@ -1,0 +1,39 @@
+/* Home hero decorative motion (used by src/pages/home/index.tsx) */
+@keyframes home-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(12deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(12deg);
+  }
+}
+
+@keyframes home-float-delayed {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+.animate-float {
+  animation: home-float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: home-float-delayed 8s ease-in-out infinite;
+}
+
+.home-anim-delay-1s {
+  animation-delay: 1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-delayed {
+    animation: none !important;
+  }
+}

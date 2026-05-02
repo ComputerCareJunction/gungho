@@ -7,6 +7,8 @@ import ContactUs from "../pages/contact";
 import HomePage from "../pages/home";
 import EventManagement from "../pages/services/event-management";
 import MarketingServices from "../pages/services/marketing-services";
+import BrandVisibilityDetailPage from "../pages/services/brand-visibility-detail";
+import TradeActivationDetailPage from "../pages/services/trade-activation-detail";
 
 export default function AppRoutes() {
   return (
@@ -14,6 +16,8 @@ export default function AppRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/event-management" element={<EventManagement />} />
       <Route path="/marketing-services" element={<MarketingServices />} />
+      <Route path="/marketing-services/trade-activation" element={<TradeActivationDetailPage />} />
+      <Route path="/marketing-services/:detailSlug" element={<BrandVisibilityDetailPage />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<ContactUs />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

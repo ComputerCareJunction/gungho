@@ -98,31 +98,128 @@
   "marketingServicesPage": {
     "title": "Gungho Marketing Services Pvt. Ltd.",
     "subtitle": "We help brands grow, scale, and stand out with result-driven marketing solutions tailored to modern business needs.",
+    "brandVisibilityDetail": {
+      "backLink": "Back to marketing services",
+      "exploreLabel": "Explore"
+    },
+    "tradeActivationDetail": {
+      "backLink": "Back to marketing services",
+      "pageLead": "Deep experience in the liquor channel: on- and off-trade execution, retail assets, events, and long-term brand partnerships."
+    },
     "sections": {
       "brandVisibility": {
-        "heading": "1. Brand Visibility",
+        "heading": "BRAND VISIBILITY",
         "lead": "We enhance your brand presence across multiple touchpoints to ensure maximum impact:",
+        "officeBrandingGalleryAlt": "Office space branding — workplace installation photograph",
+        "officeBrandingGalleryHeading": "Project gallery",
+        "galleryLightbox": {
+          "openHint": "Click to enlarge",
+          "close": "Close",
+          "zoomIn": "Zoom in",
+          "zoomOut": "Zoom out",
+          "resetZoom": "Reset zoom",
+          "fullscreen": "Fullscreen",
+          "exitFullscreen": "Exit fullscreen",
+          "previous": "Previous image",
+          "next": "Next image"
+        },
+        "thankYouClosing": {
+          "prefix": "We don't only do",
+          "execution": "Execution",
+          "strategy": "Strategy",
+          "creative": "Creative",
+          "taglineLead": "We help build brands & sales using the",
+          "taglineHighlight": "best approach",
+          "scriptTitle": "Thank You"
+        },
         "items": [
           {
             "title": "In-shop Branding",
-            "description": "Engaging retail displays and in-store branding to influence purchase decisions"
+            "description": "Engaging retail displays and in-store branding to influence purchase decisions",
+            "detailSlug": "in-shop-branding",
+            "pageLead": "POS displays, window graphics, shelf strips, and category signage tailored to modern retail environments."
           },
           {
             "title": "Outshop Branding",
-            "description": "Outdoor advertising and visual campaigns to boost brand recall"
+            "description": "Outdoor advertising and visual campaigns to boost brand recall",
+            "detailSlug": "outshop-branding",
+            "pageLead": "Billboards, hoardings, transit, and high-impact outdoor formats engineered for reach and recall."
           },
           {
             "title": "Office Space Branding",
-            "description": "Creative workspace branding that reflects your brand identity"
+            "description": "Creative workspace branding that reflects your brand identity",
+            "detailSlug": "office-space-branding",
+            "pageLead": "Environmental graphics, culture walls, and reception branding tailored to your space.",
+            "gallery": "officeBranding"
           }
         ]
       },
       "tradeActivation": {
-        "heading": "2. Trade Activation & Marketing Initiatives",
-        "body": "We design and execute innovative trade marketing strategies that drive customer engagement and sales. Our initiatives focus on creating meaningful interactions between brands, retailers, and end consumers."
+        "heading": "TRADE ACTIVATION & MARKETING INITIATIVES",
+        "body": "We design and execute innovative trade marketing strategies that drive customer engagement and sales. Our initiatives focus on creating meaningful interactions between brands, retailers, and end consumers.",
+        "cardLiquorSegmentImageAlt": "Our expertise in the Liquor segment — overview graphic",
+        "cardHighlightPoints": [
+          "Man Power — On Trade/ off Trade with Sales reporting",
+          "POSM placement",
+          "Gift Procurement",
+          "Signage work — Design fabrication & Installation",
+          "Events"
+        ],
+        "liquorExpertise": {
+          "title": "Our expertise in the Liquor segment",
+          "imageAlt": "Overview of liquor trade services: manpower, POSM, gifting, signage, events, logistics, chillers, loyalty, mystery shopping, and digital campaigns."
+        },
+        "liquorExpertiseItems": [
+          { "primary": "Man Power", "rest": " — On Trade/ off Trade with Sales reporting" },
+          { "rest": "POSM placement" },
+          { "primary": "Gift Procurement", "rest": "" },
+          { "primary": "Signage work", "rest": " — Design fabrication & Installation" },
+          { "primary": "Gwp/ Vap packing", "rest": " for liquor stores" },
+          { "rest": "Third party Pay-rolling" },
+          { "primary": "Events", "rest": "" },
+          { "rest": "Logistics support — POSM deployment & transportation" },
+          { "primary": "Chiller placement & maintenance", "rest": "" },
+          { "rest": "Loyalty Programme" },
+          { "primary": "Mystery Shopping", "rest": "" },
+          { "rest": "Digital Marketing Campaigns" }
+        ],
+        "brandAssociation": {
+          "title": "BRAND ASSOCIATION",
+          "imageAlt": "Collage of spirits and beer brand marks we work with across trade and retail programs."
+        },
+        "carlsberg": {
+          "bannerTitle": "TRADE MARKETING & ACTIVATION – CARLSBERG",
+          "galleryAriaLabel": "Carlsberg trade marketing and activation photos",
+          "clientBriefHeading": "CLIENT BRIEF:",
+          "clientBrief": "Call To Action Activity for Tuborg in Delhi, Haryana & Rajasthan",
+          "solutionHeading": "SOLUTION:",
+          "solution": "ALSPL Team has conceptualised Plinko Board Game along with Merchandising Gifts for customers to engage them and convert it into Sales.",
+          "imageAlts": [
+            "Carlsberg trade marketing and activation — photo 1",
+            "Carlsberg trade marketing and activation — photo 2",
+            "Carlsberg trade marketing and activation — photo 3"
+          ],
+          "caseStudy": {
+            "heroIntro": "Are you looking for a way to invite interest and inspiration across all aspects of your retail experience? Gung Ho innovates super-branded activations that engage trade and convert shoppers through experiential retailing.",
+            "featureCards": [
+              {
+                "title": "Illuminated Displays",
+                "description": "Striking backlit Tuborg Classic bottle silhouettes and Plinko boards that draw attention on the trade floor."
+              },
+              {
+                "title": "Custom Branding",
+                "description": "End-to-end branded mechanics, messaging, and merchandising tailored to your campaign and retail footprint."
+              },
+              {
+                "title": "High Impact",
+                "description": "Installations designed to stop traffic, start conversations, and convert engagement into measurable sales."
+              }
+            ]
+          }
+        }
       },
       "businessIncubation": {
-        "heading": "3. Business Incubation & Marketing Services",
+        "heading": "BUSINESS INCUBATION & MARKETING SERVICES",
         "lead": "We support businesses from idea to execution with strategic guidance:",
         "items": [
           {
@@ -140,7 +237,7 @@
         ]
       },
       "mediaBuying": {
-        "heading": "4. Media Buying & Media Planning",
+        "heading": "MEDIA BUYING & MEDIA PLANNING",
         "lead": "We optimize your marketing investments with data-driven media strategies:",
         "bullets": [
           "Strategic media planning across digital and traditional platforms",
@@ -149,7 +246,7 @@
         ]
       },
       "integratedMarketing": {
-        "heading": "Integrated Marketing Services",
+        "heading": "INTEGRATED MARKETING SERVICES",
         "lead": "We provide end-to-end solutions to help brands attract, engage, and retain their audience:",
         "items": [
           "Audience Acquisition",
@@ -161,7 +258,7 @@
         ]
       },
       "marketingServices": {
-        "heading": "Marketing Services",
+        "heading": "MARKETING SERVICES",
         "lead": "Strategic and creative marketing to build and grow your brand:",
         "items": [
           "Channel-specific social media services",
@@ -172,15 +269,15 @@
         ]
       },
       "digitalMarketing": {
-        "heading": "Digital Marketing Services",
+        "heading": "DIGITAL MARKETING SERVICES",
         "body": "Data-driven digital strategies to enhance your online presence and performance across platforms."
       },
       "retailDesign": {
-        "heading": "Retail Design",
+        "heading": "RETAIL DESIGN",
         "body": "Innovative and impactful retail design solutions that elevate brand visibility and customer experience."
       },
       "eventsExhibitions": {
-        "heading": "Events & Exhibitions",
+        "heading": "EVENTS & EXHIBITIONS",
         "lead": "We design and manage memorable experiences that connect brands with their audience:",
         "items": [
           "Conferences",
@@ -190,7 +287,7 @@
         ]
       },
       "contentCuration": {
-        "heading": "Content Curation",
+        "heading": "CONTENT CURATION",
         "lead": "Creative storytelling and production to bring your brand to life:",
         "items": [
           "Audio-visual concept & design",
@@ -349,6 +446,14 @@
     "eventManagementDescription": "Discover Gungho event management services for corporate events, team building, social events, and product launches.",
     "marketingServicesTitle": "Gungho Marketing Services Pvt. Ltd. | Brand, Trade, Media & Integrated Marketing",
     "marketingServicesDescription": "Gungho Marketing Services Pvt. Ltd. offers brand visibility, trade activation, business incubation, media planning and buying, integrated marketing, digital marketing, retail design, events, and content curation.",
+    "tradeActivationTitle": "Trade Activation & Marketing Initiatives | Gungho Marketing Services",
+    "tradeActivationDescription": "Liquor segment trade marketing: manpower, POSM, signage, events, logistics, chillers, loyalty, mystery shopping, digital campaigns, and brand association.",
+    "officeSpaceBrandingTitle": "Office Space Branding | Gungho Marketing Services",
+    "officeSpaceBrandingDescription": "Explore Gungho's office and workplace branding: environmental graphics, wall branding, and installations that reflect your brand identity.",
+    "inShopBrandingTitle": "In-shop Branding | Gungho Marketing Services",
+    "inShopBrandingDescription": "Retail displays, in-store graphics, and point-of-sale branding that influence purchase decisions and strengthen brand presence at shelf.",
+    "outshopBrandingTitle": "Outshop Branding | Gungho Marketing Services",
+    "outshopBrandingDescription": "Outdoor advertising, hoardings, and visual campaigns that boost brand recall and reach audiences beyond the store.",
     "contactTitle": "Contact Gungho | Event and Marketing Consultation",
     "contactDescription": "Contact Gungho to discuss your next event or marketing project and schedule a consultation with our team."
   }
