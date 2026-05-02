@@ -53,7 +53,7 @@ export default function MarketingServices() {
         path="/marketing-services"
       />
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 pb-20">
+        <div className="mx-auto max-w-7xl px-6 py-12 pb-20 sm:px-8">
           <header className="text-center mb-14 sm:mb-16">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
               {en.marketingServicesPage.title}
