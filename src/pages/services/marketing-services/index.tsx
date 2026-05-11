@@ -41,8 +41,6 @@ function iconForBrandSlug(slug: string): LucideIcon {
       return Signpost;
     case 'office-space-branding':
       return Building2;
-    case 'exhibition-portfolio':
-      return PartyPopper;
     default:
       return Store;
   }
