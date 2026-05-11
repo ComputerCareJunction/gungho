@@ -1,55 +1,63 @@
 import { useEffect } from 'react';
 
-/** Inputs, textareas, selects, and `[data-allow-copy]` keep normal select / copy / context menu. */
-function isFormOrAllowedTarget(target: EventTarget | null): boolean {
-  if (!(target instanceof HTMLElement)) return false;
-  if (target.closest('[data-allow-copy]')) return true;
-  return !!target.closest('input, textarea, select, option, [contenteditable="true"]');
+function isEditableTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof Element)) return false;
+  return !!target.closest(
+    'input, textarea, select, option, [contenteditable="true"], [data-allow-copy], [data-allow-select]'
+  );
 }
 
-/**
- * Discourages casual copying, saving, view-source, image drag, and context menu.
- * Not a security boundary — bypassable via devtools, extensions, or disabling JS.
- */
 export default function ContentProtection() {
   useEffect(() => {
-    const blockDefault = (e: Event) => {
-      if (isFormOrAllowedTarget(e.target)) return;
+    const onContextMenu = (e: MouseEvent) => {
+      if (isEditableTarget(e.target)) return;
       e.preventDefault();
     };
 
     const onDragStart = (e: DragEvent) => {
-      if (isFormOrAllowedTarget(e.target)) return;
-      if (e.dataTransfer?.types?.includes('Files')) return;
+      if (isEditableTarget(e.target)) return;
+      e.preventDefault();
+    };
+
+    const onSelectStart = (e: Event) => {
+      if (isEditableTarget(e.target)) return;
+      e.preventDefault();
+    };
+
+    const onCopy = (e: ClipboardEvent) => {
+      if (isEditableTarget(e.target)) return;
+      e.preventDefault();
+    };
+
+    const onCut = (e: ClipboardEvent) => {
+      if (isEditableTarget(e.target)) return;
       e.preventDefault();
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (isFormOrAllowedTarget(e.target)) return;
-      const mod = e.ctrlKey || e.metaKey;
-      if (!mod) return;
-      const key = e.key?.toLowerCase();
-      if (['c', 'x', 'a', 's', 'u'].includes(key)) {
-        e.preventDefault();
+      if (isEditableTarget(e.target)) return;
+      if (e.ctrlKey || e.metaKey) {
+        const k = e.key.toLowerCase();
+        if (k === 'c' || k === 'x' || k === 'u') {
+          e.preventDefault();
+        }
       }
     };
 
-    const opts = { capture: true } as const;
-    document.addEventListener('contextmenu', blockDefault, opts);
-    document.addEventListener('copy', blockDefault, opts);
-    document.addEventListener('cut', blockDefault, opts);
-    document.addEventListener('dragstart', onDragStart, opts);
-    document.addEventListener('keydown', onKeyDown, opts);
-
-    document.body.classList.add('content-protection');
+    document.addEventListener('contextmenu', onContextMenu, true);
+    document.addEventListener('dragstart', onDragStart, true);
+    document.addEventListener('selectstart', onSelectStart, true);
+    document.addEventListener('copy', onCopy, true);
+    document.addEventListener('cut', onCut, true);
+    document.addEventListener('keydown', onKeyDown, true);
 
     return () => {
-      document.removeEventListener('contextmenu', blockDefault, opts);
-      document.removeEventListener('copy', blockDefault, opts);
-      document.removeEventListener('cut', blockDefault, opts);
-      document.removeEventListener('dragstart', onDragStart, opts);
-      document.removeEventListener('keydown', onKeyDown, opts);
-      document.body.classList.remove('content-protection');
+      document.removeEventListener('contextmenu', onContextMenu, true);
+      document.removeEventListener('dragstart', onDragStart, true);
+      document.removeEventListener('selectstart', onSelectStart, true);
+      document.removeEventListener('copy', onCopy, true);
+      document.removeEventListener('cut', onCut, true);
+      document.removeEventListener('keydown', onKeyDown, true);
     };
   }, []);
 

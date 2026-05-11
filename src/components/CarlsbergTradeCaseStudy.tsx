@@ -22,7 +22,7 @@ export default function CarlsbergTradeCaseStudy() {
         aria-hidden
       />
       <div className="relative px-5 py-12 sm:px-8 sm:py-14 md:px-10 md:py-16">
-        <header className="mx-auto max-w-4xl text-center">
+        <header className="mx-auto w-full text-center">
           <h2
             id="carlsberg-trade-heading"
             className="text-balance text-2xl font-bold uppercase leading-tight tracking-[0.08em] text-primary sm:text-3xl md:text-4xl lg:text-[2.35rem] lg:tracking-[0.1em]"
@@ -50,7 +50,7 @@ export default function CarlsbergTradeCaseStudy() {
         </header>
 
         <ul
-          className="mx-auto mt-10 grid max-w-6xl list-none grid-cols-1 gap-5 p-0 sm:mt-12 sm:grid-cols-3 sm:gap-6 md:mt-14"
+          className="mx-auto mt-10 grid w-full list-none grid-cols-1 gap-5 p-0 sm:mt-12 sm:grid-cols-3 sm:gap-6 md:mt-14"
           aria-label={ta.carlsberg.galleryAriaLabel}
         >
           {carlsbergImages.map((src, i) => (
@@ -70,7 +70,7 @@ export default function CarlsbergTradeCaseStudy() {
           ))}
         </ul>
 
-        <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-3 sm:gap-6 md:mt-14">
+        <div className="mx-auto mt-10 grid w-full grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-3 sm:gap-6 md:mt-14">
           {cs.featureCards.map((card, index) => {
             const Icon = featureIcons[index] ?? Lightbulb;
             return (

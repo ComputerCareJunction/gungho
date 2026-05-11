@@ -1,18 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import en from '../locales/en.json';
 import { clienteleByColumnId, type ClienteleEntry } from '../data/clientele';
 
-/** Pixels per frame (~60fps). Must avoid CSS scroll-smooth on this container or RAF updates fight the browser. */
-const AUTO_SCROLL_PX_PER_FRAME = 1.25;
-/** Pause auto-scroll after manual arrow use so smooth scroll can finish */
-const PAUSE_AFTER_ARROW_MS = 2800;
+/** Time between auto-advance steps (smooth scroll needs time to finish before the next tick). */
+const AUTO_ADVANCE_MS = 5200;
 
 function faviconUrl(domain: string) {
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
 }
 
-function ClientLogoCard({ entry }: { entry: ClienteleEntry }) {
+/** ID-1 card proportions (width / height) */
+const CARD_ASPECT = '85.6 / 53.98' as const;
+
+function ClientCreditCard({ entry, isActive }: { entry: ClienteleEntry; isActive: boolean }) {
   const [imgError, setImgError] = useState(false);
   const imgSrc = entry.logo ?? faviconUrl(entry.domain);
 
@@ -21,228 +21,295 @@ function ClientLogoCard({ entry }: { entry: ClienteleEntry }) {
       href={entry.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative isolate flex w-[13.5rem] shrink-0 flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-slate-800 to-slate-900/95 p-5 shadow-lg outline-none ring-offset-2 ring-offset-slate-900 transition-[box-shadow,border-color] duration-300 ease-out hover:border-white/30 hover:from-slate-700 hover:to-slate-800 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.14),0_0_40px_-8px_rgba(249,115,22,0.2)] focus-visible:ring-2 focus-visible:ring-white/40 sm:w-60 md:w-64"
-      aria-label={`${entry.name}, opens in a new tab`}
+      className={`group relative isolate mx-auto block w-full max-w-[min(22rem,calc(100%-0.5rem))] overflow-hidden rounded-[14px] border border-primary/25 bg-[linear-gradient(180deg,#ffffff_0%,#ffffff_70%,var(--color-primary)_70%,var(--color-primary)_100%)] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.55),inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 ring-primary/15 transition-[transform,box-shadow,opacity,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_28px_56px_-14px_rgba(0,0,0,0.5),0_0_48px_-14px_color-mix(in_oklab,var(--color-primary)_22%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none sm:max-w-[24rem] sm:rounded-2xl md:max-w-[26rem] ${
+        isActive
+          ? 'translate-y-0 scale-100 opacity-100 saturate-100'
+          : 'translate-y-0.5 scale-[0.97] opacity-[0.82] saturate-[0.88] hover:opacity-95'
+      }`}
+      style={{ aspectRatio: CARD_ASPECT }}
+      aria-label={`${entry.name} — opens partner site in a new tab`}
     >
-      <div className="relative z-[1] grid h-32 grid-cols-1 grid-rows-1 overflow-hidden rounded-xl bg-white p-2 shadow-[inset_0_1px_4px_rgba(0,0,0,0.06)] ring-1 ring-slate-200/80 transition-[box-shadow,ring-color] duration-300 group-hover:shadow-[inset_0_1px_4px_rgba(0,0,0,0.05),0_6px_24px_-4px_rgba(0,0,0,0.18)] group-hover:ring-white/50 sm:h-36 sm:p-2.5">
+      <div className="pointer-events-none absolute left-1/2 top-[38%] z-[2] flex w-[88%] max-w-[16.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center sm:top-[37%] sm:max-w-[18rem]">
         {!imgError ? (
           <img
             src={imgSrc}
             alt=""
-            width={160}
-            height={160}
+            width={140}
+            height={56}
             loading="lazy"
             decoding="async"
-            className="col-start-1 row-start-1 h-full w-full min-h-0 min-w-0 object-contain"
+            draggable={false}
+            className="max-h-[34%] w-auto max-w-[88%] object-contain drop-shadow-sm transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] motion-reduce:transition-none sm:max-h-[36%]"
             onError={() => setImgError(true)}
           />
         ) : (
-          <span className="col-start-1 row-start-1 select-none self-center justify-self-center text-base font-bold uppercase tracking-wide text-slate-500">
-            {entry.name
-              .split(/\s+/)
-              .slice(0, 2)
-              .map((w) => w[0])
-              .join('')}
-          </span>
+          <svg
+            className="h-14 w-14 text-primary/45 sm:h-16 sm:w-16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="M21 15l-5-5L5 21" />
+          </svg>
         )}
       </div>
-      <p className="relative z-[1] mt-4 line-clamp-2 min-h-[3rem] text-center text-base font-semibold leading-snug text-white sm:text-lg">
-        {entry.name}
-      </p>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-center px-3 pb-3.5 pt-2 text-center sm:px-4 sm:pb-4 sm:pt-2.5">
+        <p className="line-clamp-2 max-w-[95%] text-[0.65rem] font-semibold uppercase leading-snug tracking-[0.1em] text-primary-foreground sm:text-xs">
+          {entry.name}
+        </p>
+      </div>
     </a>
   );
 }
 
 export default function HomeClientele() {
   const c = en.home.clients;
-  const allClients = c.columns.flatMap((col) => clienteleByColumnId[col.id] ?? []);
-  const loopClients = [...allClients, ...allClients];
+  const clients = useMemo(
+    () => en.home.clients.columns.flatMap((col) => clienteleByColumnId[col.id] ?? []),
+    []
+  );
 
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef(0);
-  const hoverPausedRef = useRef(false);
-  const pauseAutoUntilRef = useRef(0);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [active, setActive] = useState(0);
+  const activeRef = useRef(0);
+  const tabHiddenRef = useRef(typeof document !== 'undefined' && document.visibilityState === 'hidden');
+  const dragRef = useRef({ active: false, pointerId: -1, startX: 0, startScroll: 0, moved: 0 });
+  const suppressLinkClickRef = useRef(false);
 
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
+  activeRef.current = active;
 
-  const updateScrollEdges = useCallback(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    const max = Math.max(0, scrollWidth - clientWidth);
-    const epsilon = 2;
-    setCanScrollPrev(scrollLeft > epsilon);
-    setCanScrollNext(scrollLeft < max - epsilon);
-  }, []);
+  /** Centers a slide in the scroller using native smooth scrolling (works cleanly with flex + gap). */
+  const scrollToIndex = useCallback(
+    (index: number) => {
+      const n = clients.length;
+      if (n === 0) return;
+      const i = ((index % n) + n) % n;
+      const root = scrollerRef.current;
+      const slide = slideRefs.current[i];
+      if (!root || !slide) return;
 
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
+      const rootRect = root.getBoundingClientRect();
+      const slideRect = slide.getBoundingClientRect();
+      const slideCenter = slideRect.left + slideRect.width / 2;
+      const rootCenter = rootRect.left + rootRect.width / 2;
+      const delta = slideCenter - rootCenter;
+      const maxScroll = Math.max(0, root.scrollWidth - root.clientWidth);
+      const nextLeft = Math.max(0, Math.min(maxScroll, root.scrollLeft + delta));
 
-    updateScrollEdges();
-    el.addEventListener('scroll', updateScrollEdges, { passive: true });
-    window.addEventListener('resize', updateScrollEdges);
-
-    const ro = new ResizeObserver(() => updateScrollEdges());
-    ro.observe(el);
-
-    return () => {
-      el.removeEventListener('scroll', updateScrollEdges);
-      window.removeEventListener('resize', updateScrollEdges);
-      ro.disconnect();
-    };
-  }, [allClients.length, updateScrollEdges]);
+      root.scrollTo({ left: nextLeft, behavior: 'smooth' });
+    },
+    [clients.length]
+  );
 
   useEffect(() => {
-    if (allClients.length === 0) return;
+    const root = scrollerRef.current;
+    if (!root || clients.length === 0) return;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduceMotion.matches) return;
+    const slides = slideRefs.current.slice(0, clients.length).filter((el): el is HTMLDivElement => el != null);
+    if (slides.length !== clients.length) return;
 
-    let cancelled = false;
-    const tick = () => {
-      if (cancelled) return;
-      const el = scrollerRef.current;
-      if (el) {
-        const pausedByInteraction = hoverPausedRef.current;
-        const pausedByArrow = Date.now() < pauseAutoUntilRef.current;
-        if (!pausedByInteraction && !pausedByArrow) {
-          el.scrollLeft += AUTO_SCROLL_PX_PER_FRAME;
-          const half = el.scrollWidth / 2;
-          if (half > 0 && el.scrollLeft >= half - 1) {
-            el.scrollLeft -= half;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let bestIdx = -1;
+        let bestRatio = 0;
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const idx = slides.indexOf(e.target as HTMLDivElement);
+          if (idx < 0) continue;
+          if (e.intersectionRatio > bestRatio) {
+            bestRatio = e.intersectionRatio;
+            bestIdx = idx;
           }
         }
-      }
-      if (!cancelled) {
-        rafRef.current = requestAnimationFrame(tick);
-      }
-    };
+        if (bestIdx >= 0 && bestRatio >= 0.38) setActive(bestIdx);
+      },
+      { root, rootMargin: '0px', threshold: [0.35, 0.5, 0.65, 0.8] }
+    );
 
-    const startId = requestAnimationFrame(() => {
-      if (cancelled) return;
-      rafRef.current = requestAnimationFrame(tick);
-    });
+    for (const s of slides) observer.observe(s);
+    return () => observer.disconnect();
+  }, [clients.length]);
+
+  useEffect(() => {
+    if (clients.length <= 1) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduce.matches) return;
+
+    const onVisibility = () => {
+      tabHiddenRef.current = document.visibilityState === 'hidden';
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    const id = window.setInterval(() => {
+      if (tabHiddenRef.current || dragRef.current.active) return;
+      const next = (activeRef.current + 1) % clients.length;
+      scrollToIndex(next);
+    }, AUTO_ADVANCE_MS);
+
     return () => {
-      cancelled = true;
-      cancelAnimationFrame(startId);
-      cancelAnimationFrame(rafRef.current);
+      window.clearInterval(id);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [allClients.length]);
+  }, [clients.length, scrollToIndex]);
 
-  const getScrollStep = useCallback(() => {
-    const el = scrollerRef.current;
-    if (!el) return 300;
-    const first = el.querySelector('a');
-    if (first instanceof HTMLElement) {
-      const styles = window.getComputedStyle(el);
-      const gapParsed = parseFloat(styles.gap || '0');
-      const gap = Number.isFinite(gapParsed) && gapParsed > 0 ? gapParsed : 20;
-      return Math.min(el.clientWidth * 0.75, first.offsetWidth + gap);
-    }
-    return Math.min(320, el.clientWidth * 0.75);
-  }, []);
-
-  const scrollPrev = () => {
-    pauseAutoUntilRef.current = Date.now() + PAUSE_AFTER_ARROW_MS;
+  useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    el.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
-  };
 
-  const scrollNext = () => {
-    pauseAutoUntilRef.current = Date.now() + PAUSE_AFTER_ARROW_MS;
+    const onWinMove = (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d.active || e.pointerId !== d.pointerId) return;
+      el.scrollLeft = d.startScroll - (e.clientX - d.startX);
+      d.moved = Math.max(d.moved, Math.abs(e.clientX - d.startX));
+    };
+
+    const onWinUp = (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d.active || e.pointerId !== d.pointerId) return;
+      d.active = false;
+      el.classList.remove('cursor-grabbing');
+      window.removeEventListener('pointermove', onWinMove);
+      window.removeEventListener('pointerup', onWinUp);
+      window.removeEventListener('pointercancel', onWinUp);
+      if (d.moved > 8) {
+        suppressLinkClickRef.current = true;
+        window.setTimeout(() => {
+          suppressLinkClickRef.current = false;
+        }, 80);
+      }
+    };
+
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      dragRef.current = {
+        active: true,
+        pointerId: e.pointerId,
+        startX: e.clientX,
+        startScroll: el.scrollLeft,
+        moved: 0
+      };
+      el.classList.add('cursor-grabbing');
+      window.addEventListener('pointermove', onWinMove);
+      window.addEventListener('pointerup', onWinUp);
+      window.addEventListener('pointercancel', onWinUp);
+    };
+
+    el.addEventListener('pointerdown', onDown);
+
+    return () => {
+      el.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointermove', onWinMove);
+      window.removeEventListener('pointerup', onWinUp);
+      window.removeEventListener('pointercancel', onWinUp);
+      el.classList.remove('cursor-grabbing');
+    };
+  }, [clients.length]);
+
+  useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    el.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
-  };
+    const onClickCapture = (e: MouseEvent) => {
+      if (suppressLinkClickRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+    el.addEventListener('click', onClickCapture, true);
+    return () => el.removeEventListener('click', onClickCapture, true);
+  }, [clients.length]);
 
-  const arrowClass =
-    'pointer-events-auto z-20 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-slate-950/70 text-white shadow-lg backdrop-blur-md transition hover:border-primary hover:bg-slate-900/90 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 disabled:pointer-events-none disabled:opacity-30';
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        scrollToIndex(activeRef.current - 1);
+        e.preventDefault();
+      } else if (e.key === 'ArrowRight') {
+        scrollToIndex(activeRef.current + 1);
+        e.preventDefault();
+      }
+    };
+    el.addEventListener('keydown', onKey);
+    return () => el.removeEventListener('keydown', onKey);
+  }, [clients.length, scrollToIndex]);
+
+  if (clients.length === 0) {
+    return null;
+  }
 
   return (
     <section
-      className="relative overflow-hidden border-t border-white/10 bg-transparent text-white"
+      className="relative border-t border-white/10 bg-transparent text-white"
       aria-labelledby="home-clientele-heading"
     >
-      <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-20 text-center sm:px-8 sm:pb-32 sm:pt-28 md:pb-36 md:pt-32">
+      <div className="page-content-inset relative pb-16 pt-10 text-center sm:pb-20 sm:pt-12 md:pb-24 md:pt-14">
         <h2
           id="home-clientele-heading"
           className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
         >
           {c.title}
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-slate-400 sm:mt-4 sm:text-base">
+        <p className="mx-auto mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-slate-400 sm:mt-4 sm:text-base">
           {c.subtitle}
         </p>
 
-        <div className="relative mt-16 sm:mt-24">
-          <div
-            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-950/80 via-slate-950/25 to-transparent sm:w-20"
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-950/80 via-slate-950/25 to-transparent sm:w-20"
-            aria-hidden
-          />
+        <div className="relative mt-8 min-w-0 sm:mt-10 md:mt-12">
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_48px_-18px_rgba(0,0,0,0.7)] ring-1 ring-white/5 backdrop-blur-md [mask-image:linear-gradient(90deg,transparent_0%,black_5%,black_95%,transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,black_5%,black_95%,transparent_100%)]">
+            <div
+              ref={scrollerRef}
+              tabIndex={0}
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Our clients. Drag sideways with the mouse or trackpad to scroll. Use dots or arrow keys to jump between partners."
+              className="flex cursor-grab snap-x snap-mandatory scroll-pb-3 scroll-pt-3 scroll-smooth gap-6 overflow-x-auto overflow-y-visible px-5 py-6 [-ms-overflow-style:none] [scrollbar-width:none] outline-none selection:bg-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:scroll-auto motion-reduce:cursor-default motion-reduce:snap-none sm:gap-8 sm:px-7 sm:py-8 [&::-webkit-scrollbar]:hidden"
+            >
+              {clients.map((entry, slideIndex) => (
+                <div
+                  key={`${entry.domain}-${entry.name}`}
+                  ref={(el) => {
+                    slideRefs.current[slideIndex] = el;
+                  }}
+                  className="w-[min(22rem,calc(100%-1rem))] shrink-0 snap-center snap-always scroll-mx-2 sm:w-[min(24rem,calc(100%-1.5rem))] md:w-[min(26rem,calc(100%-2rem))] sm:scroll-mx-4"
+                  aria-roledescription="slide"
+                  aria-label={`${entry.name}, slide ${slideIndex + 1} of ${clients.length}`}
+                >
+                  <ClientCreditCard entry={entry} isActive={slideIndex === active} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-          <button
-            type="button"
-            className={`${arrowClass} absolute left-1 top-1/2 -translate-y-1/2 sm:left-2`}
-            onClick={scrollPrev}
-            disabled={!canScrollPrev}
-            aria-label="Scroll clients backward"
-          >
-            <ChevronLeft className="h-6 w-6" aria-hidden />
-          </button>
-          <button
-            type="button"
-            className={`${arrowClass} absolute right-1 top-1/2 -translate-y-1/2 sm:right-2`}
-            onClick={scrollNext}
-            disabled={!canScrollNext}
-            aria-label="Scroll clients forward"
-          >
-            <ChevronRight className="h-6 w-6" aria-hidden />
-          </button>
-
+        {clients.length > 1 ? (
           <div
-            ref={scrollerRef}
-            role="region"
-            aria-label="Client logos. Auto-scrolls horizontally; pauses while the pointer is over the cards, while dragging, when a card is focused, or briefly after using the arrows."
-            className="flex justify-start gap-5 overflow-x-auto overflow-y-visible scroll-auto px-14 py-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-7 sm:px-16 [&::-webkit-scrollbar]:hidden"
-            onMouseEnter={() => {
-              hoverPausedRef.current = true;
-            }}
-            onMouseLeave={() => {
-              hoverPausedRef.current = false;
-            }}
-            onPointerDown={() => {
-              hoverPausedRef.current = true;
-            }}
-            onPointerUp={() => {
-              hoverPausedRef.current = false;
-            }}
-            onPointerCancel={() => {
-              hoverPausedRef.current = false;
-            }}
-            onFocusCapture={() => {
-              hoverPausedRef.current = true;
-            }}
-            onBlurCapture={(e) => {
-              if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-                hoverPausedRef.current = false;
-              }
-            }}
+            className="mt-8 flex max-h-24 flex-wrap items-center justify-center gap-1.5 overflow-y-auto px-2 sm:mt-10 sm:gap-2"
+            role="tablist"
+            aria-label="Slide indicators"
           >
-            {loopClients.map((entry, index) => (
-              <ClientLogoCard
-                key={`${entry.name}-${entry.domain}-${index}`}
-                entry={entry}
+            {clients.map((entry, i) => (
+              <button
+                key={`dot-${entry.domain}-${i}`}
+                type="button"
+                role="tab"
+                aria-selected={i === active}
+                aria-label={`Go to ${entry.name}`}
+                className={`h-2 shrink-0 rounded-full transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+                  i === active ? 'w-7 bg-sky-400 shadow-[0_0_14px_-2px_rgba(56,189,248,0.55)] sm:w-8' : 'w-2 bg-white/25 hover:bg-white/45 sm:w-2.5'
+                }`}
+                onClick={() => scrollToIndex(i)}
               />
             ))}
           </div>
-        </div>
+        ) : null}
       </div>
     </section>
   );

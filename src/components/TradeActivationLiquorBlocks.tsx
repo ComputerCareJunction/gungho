@@ -14,7 +14,7 @@ export default function TradeActivationLiquorBlocks() {
         <h2 className="text-lg font-bold tracking-wide text-primary sm:text-xl">{ta.brandAssociation.title}</h2>
         <div className="mt-4 rounded-xl border border-slate-600/60 bg-white p-3 shadow-lg ring-1 ring-black/20 sm:p-4">
           <ul
-            className="mx-auto grid max-w-5xl list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5"
+            className="mx-auto grid w-full list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5"
             aria-label={ta.brandAssociation.imageAlt}
           >
             {liquorBrandAssociationTiles.map((src) => (

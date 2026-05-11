@@ -8,6 +8,13 @@ type BrandVisibilityCardProps = {
   icon: LucideIcon;
   /** Used when `previewSlot` is not set */
   previewSrc?: string;
+  /**
+   * When more than one URL is provided (and no `previewSlot`), the first image is shown
+   * with a centered “see more” cue — e.g. office branding gallery on marketing services.
+   */
+  previewGallery?: readonly string[];
+  /** Label for the multi-image overlay; defaults to “See more +”. */
+  previewGallerySeeMoreLabel?: string;
   /** Custom preview (e.g. coded layout); takes precedence over `previewSrc` */
   previewSlot?: ReactNode;
   exploreLabel: string;
@@ -27,6 +34,8 @@ export default function BrandVisibilityCard({
   description,
   icon: Icon,
   previewSrc,
+  previewGallery,
+  previewGallerySeeMoreLabel = 'See more +',
   previewSlot,
   exploreLabel,
   onClick,
@@ -37,6 +46,9 @@ export default function BrandVisibilityCard({
   highlightPoints
 }: BrandVisibilityCardProps) {
   const mediaOnly = variant === 'mediaOnly';
+  const hasMultiPreview =
+    !previewSlot && previewGallery != null && previewGallery.length > 1;
+  const displayPreviewSrc = hasMultiPreview ? previewGallery[0] : previewSrc;
   const showHighlightImage = mediaOnly && !!highlightImageSrc;
   const showHighlightList =
     mediaOnly && !showHighlightImage && highlightPoints && highlightPoints.length > 0;
@@ -45,7 +57,7 @@ export default function BrandVisibilityCard({
     mediaOnly && (!!previewSrc || !!previewSlot);
   /** No inner frame/border around the image — only for large media-only `previewSrc` (not slot). */
   const previewImageBare =
-    mediaOnlyLargePreview && !!previewSrc && !previewSlot;
+    mediaOnlyLargePreview && !!previewSrc && !previewSlot && !hasMultiPreview;
 
   const mediaBlock = (
     <div
@@ -56,10 +68,10 @@ export default function BrandVisibilityCard({
       >
         {previewSlot ? (
           <div className="flex h-full w-full items-stretch justify-stretch">{previewSlot}</div>
-        ) : previewSrc ? (
+        ) : displayPreviewSrc ? (
           <>
             <img
-              src={previewSrc}
+              src={displayPreviewSrc}
               alt={mediaOnly && highlightImageAlt ? highlightImageAlt : ''}
               className={`h-full w-full origin-center transition duration-700 ease-out ${previewImageBare ? 'group-hover/preview:scale-[1.12] sm:group-hover/preview:scale-[1.18]' : mediaOnlyLargePreview ? 'group-hover/preview:scale-[1.03]' : 'group-hover/preview:scale-110'} ${mediaOnly ? 'object-contain' : 'object-cover'}`}
             />
@@ -68,6 +80,19 @@ export default function BrandVisibilityCard({
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition group-hover/preview:opacity-100"
                 aria-hidden
               />
+            ) : null}
+            {hasMultiPreview ? (
+              <>
+                <span
+                  className="pointer-events-none absolute inset-0 bg-black/20"
+                  aria-hidden
+                />
+                <span className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center p-3">
+                  <span className="max-w-[min(100%,14rem)] text-center text-sm font-semibold leading-tight tracking-wide text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)] sm:text-base">
+                    {previewGallerySeeMoreLabel}
+                  </span>
+                </span>
+              </>
             ) : null}
           </>
         ) : null}
