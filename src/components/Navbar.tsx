@@ -1,14 +1,19 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/images/gungho-logo.png';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, PartyPopper, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import en from '../locales/en.json';
+
+const SCROLL_GLASS_THRESHOLD_PX = 16;
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(
+    () => typeof window !== 'undefined' && window.scrollY > SCROLL_GLASS_THRESHOLD_PX
+  );
 
   const navItems = [
     { label: en.navigation.home, path: '/' },
@@ -16,9 +21,19 @@ export default function Navbar() {
   ];
 
   const serviceItems = [
-    { label: en.navigation.eventManagement, path: '/event-management' },
-    { label: en.navigation.marketingServices, path: '/marketing-services' },
-  ];
+    {
+      label: en.navigation.eventManagement,
+      path: '/event-management',
+      icon: PartyPopper,
+      summary: en.eventManagementPage.subtitle,
+    },
+    {
+      label: en.navigation.marketingServices,
+      path: '/marketing-services',
+      icon: Sparkles,
+      summary: en.marketingServicesPage.subtitle,
+    },
+  ] as const;
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -26,9 +41,25 @@ export default function Navbar() {
     setIsServicesMenuOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > SCROLL_GLASS_THRESHOLD_PX);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <nav className="bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+    <nav
+      className={[
+        'sticky top-0 z-50 border-b transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300 ease-out motion-reduce:transition-none',
+        isScrolled
+          ? 'border-white/10 bg-slate-950/50 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.45)] backdrop-blur-xl backdrop-saturate-150'
+          : 'border-slate-800 bg-slate-900',
+      ].join(' ')}
+    >
+      <div className="page-content-inset py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <button
@@ -75,27 +106,45 @@ export default function Navbar() {
                 )}
               </button>
               <div
-                className={`absolute left-0 top-full min-w-56 pt-2 ${
+                className={`absolute left-0 top-full pt-3 ${
                   isServicesMenuOpen ? 'block' : 'hidden'
                 }`}
               >
-                <div className="rounded-lg border border-slate-700 bg-slate-900 p-2 shadow-xl">
-                {serviceItems.map((item) => (
-                  <button
-                    key={item.path}
-                    onClick={() => {
-                      navigate(item.path);
-                      setIsServicesMenuOpen(false);
-                    }}
-                    className={`block w-full rounded-md px-3 py-2 text-left transition-colors ${
-                      isActive(item.path)
-                        ? 'bg-primary/20 text-primary'
-                        : 'text-white/70 hover:bg-slate-800 hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
+                <div className="w-[420px] rounded-2xl border border-slate-700 bg-slate-900/95 p-3 shadow-2xl ring-1 ring-black/60 backdrop-blur-md">
+                  <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary/80">
+                    Our services at a glance
+                  </div>
+                  <div className="space-y-1.5">
+                    {serviceItems.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <button
+                          key={item.path}
+                          onClick={() => {
+                            navigate(item.path);
+                            setIsServicesMenuOpen(false);
+                          }}
+                          className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
+                            isActive(item.path)
+                              ? 'bg-primary/15 text-primary'
+                              : 'text-white/80 hover:bg-slate-800 hover:text-white'
+                          }`}
+                        >
+                          <span className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                            <Icon className="h-4 w-4" aria-hidden />
+                          </span>
+                          <span className="flex-1">
+                            <span className="block text-sm font-semibold">
+                              {item.label}
+                            </span>
+                            <span className="mt-0.5 block text-xs text-white/60 line-clamp-2">
+                              {item.summary}
+                            </span>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

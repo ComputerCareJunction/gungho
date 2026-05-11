@@ -1,8 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
-import ContentProtection from "./components/ContentProtection";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import ContentProtection from "./components/ContentProtection";
 import AppRoutes from "./routes";
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 w-full min-w-0">
           <AppRoutes />
         </main>
         <Footer />

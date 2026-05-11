@@ -64,7 +64,7 @@ export default function ContactUs() {
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-primary to-primary/90 py-16">
-        <div className="max-w-7xl mx-auto px-8 text-center">
+        <div className="page-content-inset text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             {en.contactPage.title}
           </h1>
@@ -74,7 +74,7 @@ export default function ContactUs() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-16">
+      <div className="page-content-inset py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-2">
@@ -203,7 +203,7 @@ export default function ContactUs() {
 
       {/* CTA Section */}
       <div className="bg-slate-900/50 py-16">
-        <div className="max-w-4xl mx-auto px-8 text-center">
+        <div className="page-content-inset text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             {en.contactPage.ctaTitle}
           </h2>

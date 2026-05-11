@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Handshake } from 'lucide-react';
+import { Handshake } from 'lucide-react';
 import en from '../../../locales/en.json';
 import Seo from '../../../components/Seo';
+import MarketingServicesBackNav from '../../../components/MarketingServicesBackNav';
 import TradeActivationLiquorBlocks from '../../../components/TradeActivationLiquorBlocks';
 
 const copy = en.marketingServicesPage.tradeActivationDetail;
@@ -14,15 +15,8 @@ export default function TradeActivationDetailPage() {
     <>
       <Seo title={en.seo.tradeActivationTitle} description={en.seo.tradeActivationDescription} path="/marketing-services/trade-activation" />
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="mx-auto max-w-7xl px-6 py-10 pb-20 sm:px-8 sm:py-12">
-          <button
-            type="button"
-            onClick={() => navigate('/marketing-services')}
-            className="mb-8 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-slate-800/80 px-4 py-2.5 text-sm font-medium text-white/90 transition hover:border-primary/40 hover:bg-slate-800 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-          >
-            <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
-            {copy.backLink}
-          </button>
+        <div className="page-content-inset py-10 pb-20 sm:py-12">
+          <MarketingServicesBackNav label={copy.backLink} onBack={() => navigate('/marketing-services')} />
 
           <header className="mb-10 border-b border-white/10 pb-10">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/30 bg-primary/15 text-primary">

@@ -1,21 +1,29 @@
-/* Site-wide discouragement of selection / image drag (paired with ContentProtection.tsx) */
-body.content-protection {
-  -webkit-user-select: none;
-  user-select: none;
-}
+/**
+ * Horizontal inset for text, cards, and nav/footer chrome only.
+ * Page backgrounds stay full-bleed (no padding on `<main>` or page root wrappers).
+ */
+@layer components {
+  .page-content-inset {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
-body.content-protection input,
-body.content-protection textarea,
-body.content-protection select,
-body.content-protection [contenteditable='true'],
-body.content-protection [data-allow-copy] {
-  -webkit-user-select: text;
-  user-select: text;
-}
+  @media (min-width: 640px) {
+    .page-content-inset {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
 
-body.content-protection img {
-  -webkit-user-drag: none;
-  user-select: none;
+  @media (min-width: 1024px) {
+    .page-content-inset {
+      padding-left: 150px;
+      padding-right: 150px;
+    }
+  }
 }
 
 /* Home hero decorative motion (used by src/pages/home/index.tsx) */
@@ -55,5 +63,26 @@ body.content-protection img {
   .animate-float,
   .animate-float-delayed {
     animation: none !important;
+  }
+}
+
+/* Site-wide content protection: disable selection except in form fields and marked areas */
+@layer base {
+  html {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  input,
+  textarea,
+  select,
+  option,
+  [contenteditable='true'],
+  [data-allow-copy],
+  [data-allow-select] {
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
   }
 }

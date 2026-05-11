@@ -1,6 +1,7 @@
 import { Award, Target, Users, TrendingUp } from 'lucide-react';
 import en from '../../locales/en.json';
 import Seo from '../../components/Seo';
+import treeOurStoryImg from '../../assets/images/tree-our-story.png';
 
 export default function About() {
   const values = [
@@ -26,13 +27,6 @@ export default function About() {
     }
   ];
 
-  const stats = [
-    { number: en.aboutPage.stats.eventsManagedValue, label: en.aboutPage.stats.eventsManaged },
-    { number: en.aboutPage.stats.happyClientsValue, label: en.aboutPage.stats.happyClients },
-    { number: en.aboutPage.stats.yearsExperienceValue, label: en.aboutPage.stats.yearsExperience },
-    { number: en.aboutPage.stats.teamMembersValue, label: en.aboutPage.stats.teamMembers }
-  ];
-
   return (
     <>
       <Seo
@@ -44,30 +38,13 @@ export default function About() {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 py-20">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative max-w-7xl mx-auto px-8 text-center">
+        <div className="page-content-inset relative text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             {en.aboutPage.title}
           </h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto">
             {en.aboutPage.subtitle}
           </p>
-        </div>
-      </div>
-
-      {/* Stats Section */}
-      <div className="max-w-7xl mx-auto px-8 pt-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="bg-slate-800 rounded-xl p-6 text-center shadow-xl"
-            >
-              <div className="text-4xl font-bold text-primary mb-2">
-                {stat.number}
-              </div>
-              <div className="text-white/70">{stat.label}</div>
-            </div>
-          ))}
         </div>
       </div>
 
@@ -80,22 +57,46 @@ export default function About() {
           <div className="absolute -right-24 top-0 h-96 w-96 rounded-full bg-primary/25 blur-[100px]" />
           <div className="absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-sky-500/10 blur-[90px]" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-12 lg:items-start">
-            <div className="lg:col-span-7">
-              <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-10 lg:p-12 shadow-2xl shadow-black/20 backdrop-blur-sm">
-                <div
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-                  aria-hidden
-                />
+        <div className="page-content-inset relative">
+          <p className="sr-only">{en.aboutPage.ourStoryTreeImageAlt}</p>
+          <article className="relative w-full overflow-hidden rounded-3xl border border-white/15 shadow-2xl shadow-black/25 ring-1 ring-primary/15">
+            <img
+              src={treeOurStoryImg}
+              alt=""
+              width={1200}
+              height={1500}
+              loading="lazy"
+              decoding="async"
+              aria-hidden
+              className="pointer-events-none absolute inset-0 h-full w-full scale-[1.08] object-cover object-center brightness-[1.08] contrast-[1.05] saturate-[1.08]"
+            />
+            {/* Light scrim so the tree stays visible; darker at edges for contrast */}
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-950/58 via-slate-950/28 to-slate-950/62"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/40"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -right-10 top-1/3 h-48 w-48 rounded-full bg-primary/12 blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+              aria-hidden
+            />
+            <div className="relative z-10">
+              <div className="p-8 sm:p-10 lg:p-12">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/90">
                   {en.aboutPage.ourStoryEyebrow}
                 </p>
-                <h2 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                <h2 className="mt-4 text-4xl font-bold tracking-tight text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.85),0_1px_2px_rgba(0,0,0,0.9)] sm:text-5xl">
                   {en.aboutPage.ourStoryTitle}
                 </h2>
                 <div className="mt-10 space-y-8">
-                  <p className="text-lg leading-relaxed text-white/80 first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:leading-none sm:first-letter:text-6xl">
+                  <p className="text-lg leading-relaxed text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.82)] first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:leading-none first-letter:[text-shadow:0_2px_16px_rgba(0,0,0,0.75)] sm:first-letter:text-6xl">
                     {en.aboutPage.ourStoryParagraph1}
                   </p>
                   <div className="relative pl-5 sm:pl-6">
@@ -103,27 +104,42 @@ export default function About() {
                       className="absolute left-0 top-1 bottom-1 w-1 rounded-full bg-gradient-to-b from-primary via-primary/60 to-primary/20"
                       aria-hidden
                     />
-                    <p className="text-base sm:text-lg leading-relaxed text-white/75">
+                    <p className="text-base leading-relaxed text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.8)] sm:text-lg">
                       {en.aboutPage.ourStoryParagraph2}
                     </p>
                   </div>
+                  <ul className="mt-10 list-none space-y-3.5 sm:space-y-4">
+                    {en.aboutPage.ourStoryPoints.map((line) => (
+                      <li
+                        key={line}
+                        className="flex gap-3 text-sm leading-snug text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.75)] sm:text-base sm:leading-relaxed"
+                      >
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_10px_rgba(249,115,22,0.45)]"
+                          aria-hidden
+                        />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </div>
-            <aside className="lg:col-span-5 lg:sticky lg:top-28">
-              <div className="relative overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-primary/15 via-slate-900/60 to-slate-900/90 p-8 sm:p-9">
-                <div
-                  className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-primary/20 blur-2xl"
-                  aria-hidden
-                />
-                <h3 className="relative text-2xl font-bold text-white">
+
+              <div
+                className="bg-gradient-to-b from-slate-950/35 to-slate-950/50 px-8 py-10 sm:px-10 sm:py-11 lg:px-12 lg:py-12"
+                aria-labelledby="about-why-choose-heading"
+              >
+                <h3
+                  id="about-why-choose-heading"
+                  className="text-2xl font-bold text-white [text-shadow:0_2px_24px_rgba(0,0,0,0.85)]"
+                >
                   {en.aboutPage.whyChooseUs}
                 </h3>
-                <ul className="relative mt-6 space-y-4 text-white/75">
+                <ul className="mt-6 space-y-4 text-white [text-shadow:0_1px_14px_rgba(0,0,0,0.78)]">
                   {en.aboutPage.whyChooseUsItems.map((item) => (
                     <li key={item} className="flex gap-3 text-sm sm:text-base leading-snug">
                       <span
-                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary"
+                        className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/25 text-xs font-bold text-primary"
                         aria-hidden
                       >
                         ✓
@@ -133,14 +149,14 @@ export default function About() {
                   ))}
                 </ul>
               </div>
-            </aside>
-          </div>
+            </div>
+          </article>
         </div>
       </section>
 
       {/* Values Section */}
       <div className="bg-slate-900/50 py-20">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="page-content-inset">
           <h2 className="text-4xl font-bold text-white text-center mb-12">
             {en.aboutPage.coreValuesTitle}
           </h2>

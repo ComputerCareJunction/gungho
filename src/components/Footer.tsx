@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-950 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="page-content-inset py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">

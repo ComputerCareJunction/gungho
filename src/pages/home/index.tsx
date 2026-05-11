@@ -1,11 +1,23 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/gungho-logo.png';
 import en from '../../locales/en.json';
 import Seo from '../../components/Seo';
 import HomeClientele from '../../components/HomeClientele';
+import HomeAnimatedStats from '../../components/HomeAnimatedStats';
 
 export default function HomePage() {
   const navigate = useNavigate();
+
+  const stats = useMemo(
+    () => [
+      { number: en.aboutPage.stats.eventsManagedValue, label: en.aboutPage.stats.eventsManaged },
+      { number: en.aboutPage.stats.happyClientsValue, label: en.aboutPage.stats.happyClients },
+      { number: en.aboutPage.stats.yearsExperienceValue, label: en.aboutPage.stats.yearsExperience },
+      { number: en.aboutPage.stats.teamMembersValue, label: en.aboutPage.stats.teamMembers }
+    ],
+    []
+  );
 
   return (
     <>
@@ -14,7 +26,7 @@ export default function HomePage() {
         description={en.seo.homeDescription}
         path="/"
       />
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 pt-20 sm:pt-24 md:pt-28 lg:pt-32">
+      <div className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 pt-20 sm:pt-24 md:pt-28 lg:pt-32">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-1/4 h-96 w-96 animate-pulse rounded-full bg-primary/20 blur-3xl" />
           <div className="absolute bottom-0 right-1/4 h-96 w-96 animate-pulse rounded-full bg-primary/10 blur-3xl home-anim-delay-1s" />
@@ -39,9 +51,9 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="relative z-10 flex flex-col gap-24 sm:gap-32 md:gap-40">
-          <div className="flex items-center justify-center pb-16 sm:pb-20 md:pb-24">
-            <div className="flex w-full max-w-7xl flex-col items-stretch gap-6 px-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+        <div className="relative z-10 flex flex-col gap-16 sm:gap-20 md:gap-24 lg:gap-28">
+          <div className="flex items-center justify-center">
+            <div className="page-content-inset flex w-full flex-col items-stretch gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
               <button
                 type="button"
                 onClick={() => navigate('/event-management')}
@@ -140,6 +152,11 @@ export default function HomePage() {
           </div>
 
           <HomeClientele />
+
+          <HomeAnimatedStats
+            items={stats}
+            className="page-content-inset pb-20 sm:pb-24 md:pb-28 lg:pb-32"
+          />
         </div>
       </div>
     </>

@@ -31,7 +31,7 @@
     "exploreServicesCta": "Explore Services →",
     "clients": {
       "title": "Our Clients",
-      "subtitle": "Trusted by leading brands worldwide",
+      "subtitle": "",
       "columns": [
         { "id": "tech", "category": "Technology & software" },
         { "id": "institutions", "category": "Institutions & trade" },
@@ -58,6 +58,14 @@
     "ourStoryEyebrow": "Our journey",
     "ourStoryParagraph1": "Over the years, we have grown and evolved, expanding our services to meet the changing needs of modern businesses. Throughout this journey, our focus has remained consistent—strengthening our infrastructure and enhancing our in-house capabilities.",
     "ourStoryParagraph2": "We have continuously invested in capacity building, process optimization, and talent acquisition, enabling us to deliver high-quality, scalable, and result-driven marketing solutions to our clients.",
+    "ourStoryPoints": [
+      "More than 100 – Database Programs & Response Management handled",
+      "Over 150 – Partner Sales & Incentive Programs managed",
+      "Nearly 100 – Exhibitions executed in India & Abroad",
+      "More than 4500 – Events & Exhibitions conducted",
+      "More than 200 – Activations executed in more than 100 cities in India"
+    ],
+    "ourStoryTreeImageAlt": "Illustration representing growth and our story",
     "whyChooseUs": "Why Choose Us?",
     "whyChooseUsItems": [
       "Proven track record of successful events and campaigns",
@@ -81,6 +89,45 @@
   "eventManagementPage": {
     "title": "Gungho Event Management Services",
     "subtitle": "Creating unforgettable experiences with precision and passion",
+    "exhibitionPortfolio": {
+      "cardTitle": "Exhibition Portfolio",
+      "cardDescription": "Discover King's Birthday Party, Delhi showcase with stage design, guest journey, and networking setup.",
+      "eventTitle": "King's Birthday Party, Delhi",
+      "dateLabel": "Date",
+      "dateValue": "31st October, 2025",
+      "venueLabel": "Venue",
+      "venueValue": "British High Commissioner Residence, New Delhi",
+      "summary": "KBP as an networking event was celebrated to promote – Great Britain and India relationship.",
+      "galleryHeading": "Exhibition portfolio highlights",
+      "galleryItems": [
+        {
+          "title": "Evening Stage Activation",
+          "description": "Main stage setup with dynamic lighting and presentation visuals for the evening celebration."
+        },
+        {
+          "title": "Event Venue Front View",
+          "description": "Open-lawn stage layout designed for formal addresses and guest engagement."
+        },
+        {
+          "title": "Networking Experience Zone",
+          "description": "Branded interaction zone built to encourage conversations among distinguished guests."
+        },
+        {
+          "title": "Branded Entry Walkway",
+          "description": "Custom illuminated entrance tunnel that delivered a premium welcome moment."
+        }
+      ]
+    },
+    "sustainabilityEyebrow": "Sustainability",
+    "sustainabilityTitle": "We believe in sustainability",
+    "sustainabilityParagraphs": [
+      "Gungho commitment to sustainability is evident in our conscientious choice to minimize plastic usage and embrace eco-friendly materials, such as wood, fabric in our fabrication.",
+      "In the event industry, where concerns about food wastage and post-event waste are paramount, Gungho is committed to ensuring sustainability in all our events.",
+      "Our pre-event planning meticulously addresses waste management to proactively mitigate environmental impact.",
+      "In our vendor selection process, we prioritize the widespread adoption of sustainable materials, with a keen focus on the entire life cycle of these materials to significantly reduce our carbon footprint."
+    ],
+    "sustainabilityImageAlt": "Illustration of hands holding a green globe with leaves, representing environmental care and sustainability",
+    "serviceOfferingsHeading": "What we deliver",
     "services": {
       "corporateEventsTitle": "Corporate Events",
       "corporateEventsDescription": "Professional event planning and execution for conferences, seminars, and corporate gatherings.",
@@ -91,6 +138,10 @@
       "productLaunchesTitle": "Product Launches",
       "productLaunchesDescription": "Strategic event management for successful product introductions and brand activations."
     },
+    "globalReachBody": "GungHo Event Management Services, based in Delhi, operates nationally with offices in Bangalore and Mumbai. With an extensive network of associates and vendors, we provide efficient execution across India, offering services such as response management, events, activations, and conferences.",
+    "globalReachMapAria": "Interactive world map of Gungho presence; red dots show representative office and programme locations. Pan and zoom the map.",
+    "globalReachMapAttribution": "&copy; <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferrer\">OpenStreetMap</a> contributors",
+    "globalReachImageAlt": "Interactive OpenStreetMap showing Gungho presence locations",
     "ctaTitle": "Ready to Plan Your Event?",
     "ctaSubtitle": "Let's work together to create an exceptional experience",
     "ctaButton": "Contact Us"
@@ -100,7 +151,35 @@
     "subtitle": "We help brands grow, scale, and stand out with result-driven marketing solutions tailored to modern business needs.",
     "brandVisibilityDetail": {
       "backLink": "Back to marketing services",
-      "exploreLabel": "Explore"
+      "exploreLabel": "Explore",
+      "seeMoreGallery": "See more +"
+    },
+    "exhibitionPortfolioDetail": {
+      "eventTitle": "King's Birthday Party, Delhi",
+      "dateLabel": "Date",
+      "dateValue": "31st October, 2025",
+      "venueLabel": "Venue",
+      "venueValue": "British High Commissioner Residence, New Delhi",
+      "summary": "KBP as an networking event was celebrated to promote – Great Britain and India relationship.",
+      "galleryHeading": "Exhibition portfolio highlights",
+      "galleryItems": [
+        {
+          "title": "Evening Stage Activation",
+          "description": "Main stage setup with dynamic lighting and presentation visuals for the evening celebration."
+        },
+        {
+          "title": "Event Venue Front View",
+          "description": "Open-lawn stage layout designed for formal addresses and guest engagement."
+        },
+        {
+          "title": "Networking Experience Zone",
+          "description": "Branded interaction zone built to encourage conversations among distinguished guests."
+        },
+        {
+          "title": "Branded Entry Walkway",
+          "description": "Custom illuminated entrance tunnel that delivered a premium welcome moment."
+        }
+      ]
     },
     "tradeActivationDetail": {
       "backLink": "Back to marketing services",
@@ -454,6 +533,8 @@
     "inShopBrandingDescription": "Retail displays, in-store graphics, and point-of-sale branding that influence purchase decisions and strengthen brand presence at shelf.",
     "outshopBrandingTitle": "Outshop Branding | Gungho Marketing Services",
     "outshopBrandingDescription": "Outdoor advertising, hoardings, and visual campaigns that boost brand recall and reach audiences beyond the store.",
+    "exhibitionPortfolioTitle": "Exhibition Portfolio | Gungho Marketing Services",
+    "exhibitionPortfolioDescription": "Explore Gungho's execution for the King's Birthday Party in Delhi, including stage design, networking zones, and branded guest experience.",
     "contactTitle": "Contact Gungho | Event and Marketing Consultation",
     "contactDescription": "Contact Gungho to discuss your next event or marketing project and schedule a consultation with our team."
   }

@@ -18,12 +18,19 @@ import en from '../../../locales/en.json';
 import Seo from '../../../components/Seo';
 import BrandVisibilityCard from '../../../components/BrandVisibilityCard';
 import { previewImageForBrandSlug } from '../../../data/brandVisibilityPreviews';
+import { officeBrandingGallerySources } from '../../../data/officeBrandingGallery';
 import liquorSegmentImg from '../../../assets/images/liquor-segment.png';
 
 type BrandVisibilityItem = (typeof en.marketingServicesPage.sections.brandVisibility.items)[number];
 
 function isBrandDetailItem(item: BrandVisibilityItem): item is BrandVisibilityItem & { detailSlug: string } {
   return 'detailSlug' in item && typeof (item as { detailSlug?: string }).detailSlug === 'string';
+}
+
+function previewGalleryFromItem(item: BrandVisibilityItem & { detailSlug: string }): readonly string[] | undefined {
+  const galleryKey = (item as { gallery?: string }).gallery;
+  if (galleryKey === 'officeBranding') return officeBrandingGallerySources;
+  return undefined;
 }
 
 function iconForBrandSlug(slug: string): LucideIcon {
@@ -53,7 +60,7 @@ export default function MarketingServices() {
         path="/marketing-services"
       />
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="mx-auto max-w-7xl px-6 py-12 pb-20 sm:px-8">
+        <div className="page-content-inset py-12 pb-20">
           <header className="text-center mb-14 sm:mb-16">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
               {en.marketingServicesPage.title}
@@ -88,6 +95,8 @@ export default function MarketingServices() {
                       description={item.description}
                       icon={iconForBrandSlug(item.detailSlug)}
                       previewSrc={previewImageForBrandSlug(item.detailSlug)}
+                      previewGallery={previewGalleryFromItem(item)}
+                      previewGallerySeeMoreLabel={brandDetailCopy.seeMoreGallery}
                       exploreLabel={brandDetailCopy.exploreLabel}
                       onClick={() => navigate(`/marketing-services/${item.detailSlug}`)}
                     />
