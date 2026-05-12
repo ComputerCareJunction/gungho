@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import en from '../locales/en.json';
 import { clienteleByColumnId, type ClienteleEntry } from '../data/clientele';
 
-/** Time between auto-advance steps (smooth scroll needs time to finish before the next tick). */
-const AUTO_ADVANCE_MS = 5200;
+/** Horizontal playback speed (pixels per second), like a slow filmstrip. */
+const PLAYBACK_PX_PER_SEC = 42;
 
 function faviconUrl(domain: string) {
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
@@ -21,10 +21,10 @@ function ClientCreditCard({ entry, isActive }: { entry: ClienteleEntry; isActive
       href={entry.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative isolate mx-auto block w-full max-w-[min(22rem,calc(100%-0.5rem))] overflow-hidden rounded-[14px] border border-primary/25 bg-[linear-gradient(180deg,#ffffff_0%,#ffffff_70%,var(--color-primary)_70%,var(--color-primary)_100%)] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.55),inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 ring-primary/15 transition-[transform,box-shadow,opacity,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_28px_56px_-14px_rgba(0,0,0,0.5),0_0_48px_-14px_color-mix(in_oklab,var(--color-primary)_22%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none sm:max-w-[24rem] sm:rounded-2xl md:max-w-[26rem] ${
+      className={`group relative isolate mx-auto block w-full max-w-[min(22rem,calc(100%-0.5rem))] overflow-hidden rounded-[14px] border border-primary/25 bg-[linear-gradient(180deg,#ffffff_0%,#ffffff_70%,var(--color-primary)_70%,var(--color-primary)_100%)] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.55),inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 transition-[box-shadow,opacity,filter] duration-300 ease-out hover:shadow-[0_28px_56px_-14px_rgba(0,0,0,0.5),0_0_48px_-14px_color-mix(in_oklab,var(--color-primary)_22%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none sm:max-w-[24rem] sm:rounded-2xl md:max-w-[26rem] ${
         isActive
-          ? 'translate-y-0 scale-100 opacity-100 saturate-100'
-          : 'translate-y-0.5 scale-[0.97] opacity-[0.82] saturate-[0.88] hover:opacity-95'
+          ? 'translate-y-0 scale-100 opacity-100 saturate-100 ring-primary/40'
+          : 'translate-y-0 scale-100 opacity-[0.88] saturate-[0.92] ring-primary/15 hover:opacity-95'
       }`}
       style={{ aspectRatio: CARD_ASPECT }}
       aria-label={`${entry.name} — opens partner site in a new tab`}
@@ -76,25 +76,55 @@ export default function HomeClientele() {
     []
   );
 
+  const n = clients.length;
+  const loopClients = useMemo(() => {
+    if (n <= 1) return clients;
+    return [...clients, ...clients];
+  }, [clients, n]);
+
   const scrollerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const loopWidthRef = useRef(0);
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
+  const carouselIndexRef = useRef(0);
   const tabHiddenRef = useRef(typeof document !== 'undefined' && document.visibilityState === 'hidden');
   const dragRef = useRef({ active: false, pointerId: -1, startX: 0, startScroll: 0, moved: 0 });
   const suppressLinkClickRef = useRef(false);
+  const hoverPauseRef = useRef(false);
 
   activeRef.current = active;
 
-  /** Centers a slide in the scroller using native smooth scrolling (works cleanly with flex + gap). */
+  const remeasureLoop = useCallback(() => {
+    const root = scrollerRef.current;
+    if (!root || n === 0) return;
+    if (n <= 1) {
+      loopWidthRef.current = 0;
+      return;
+    }
+    loopWidthRef.current = Math.max(1, root.scrollWidth / 2);
+  }, [n]);
+
+  useLayoutEffect(() => {
+    remeasureLoop();
+    const root = scrollerRef.current;
+    if (!root) return;
+    const ro = new ResizeObserver(() => remeasureLoop());
+    ro.observe(root);
+    return () => ro.disconnect();
+  }, [n, loopClients.length, remeasureLoop]);
+
+  /** Jump to a slide in the first copy (instant scroll so it does not fight playback rAF). */
   const scrollToIndex = useCallback(
     (index: number) => {
-      const n = clients.length;
       if (n === 0) return;
       const i = ((index % n) + n) % n;
       const root = scrollerRef.current;
       const slide = slideRefs.current[i];
       if (!root || !slide) return;
+
+      carouselIndexRef.current = i;
+      setActive(i);
 
       const rootRect = root.getBoundingClientRect();
       const slideRect = slide.getBoundingClientRect();
@@ -104,61 +134,114 @@ export default function HomeClientele() {
       const maxScroll = Math.max(0, root.scrollWidth - root.clientWidth);
       const nextLeft = Math.max(0, Math.min(maxScroll, root.scrollLeft + delta));
 
-      root.scrollTo({ left: nextLeft, behavior: 'smooth' });
+      root.scrollTo({ left: nextLeft, behavior: 'auto' });
     },
-    [clients.length]
+    [n]
   );
 
   useEffect(() => {
-    const root = scrollerRef.current;
-    if (!root || clients.length === 0) return;
+    if (n === 0) return;
 
-    const slides = slideRefs.current.slice(0, clients.length).filter((el): el is HTMLDivElement => el != null);
-    if (slides.length !== clients.length) return;
+    let cancelled = false;
+    let observer: IntersectionObserver | null = null;
+    let raf = 0;
+    let attempts = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let bestIdx = -1;
-        let bestRatio = 0;
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          const idx = slides.indexOf(e.target as HTMLDivElement);
-          if (idx < 0) continue;
-          if (e.intersectionRatio > bestRatio) {
-            bestRatio = e.intersectionRatio;
-            bestIdx = idx;
+    const trySetup = () => {
+      if (cancelled) return;
+      attempts += 1;
+      const root = scrollerRef.current;
+      if (!root) {
+        if (attempts < 40) raf = requestAnimationFrame(trySetup);
+        return;
+      }
+      const slides = slideRefs.current.slice(0, n).filter((el): el is HTMLDivElement => el != null);
+      if (slides.length !== n) {
+        if (attempts < 40) raf = requestAnimationFrame(trySetup);
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          let bestIdx = -1;
+          let bestRatio = 0;
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            const idx = slides.indexOf(e.target as HTMLDivElement);
+            if (idx < 0) continue;
+            if (e.intersectionRatio > bestRatio) {
+              bestRatio = e.intersectionRatio;
+              bestIdx = idx;
+            }
           }
-        }
-        if (bestIdx >= 0 && bestRatio >= 0.38) setActive(bestIdx);
-      },
-      { root, rootMargin: '0px', threshold: [0.35, 0.5, 0.65, 0.8] }
-    );
+          if (bestIdx >= 0 && bestRatio >= 0.2) {
+            carouselIndexRef.current = bestIdx;
+            setActive(bestIdx);
+          }
+        },
+        { root, rootMargin: '0px', threshold: [0.2, 0.35, 0.5, 0.65, 0.8] }
+      );
 
-    for (const s of slides) observer.observe(s);
-    return () => observer.disconnect();
-  }, [clients.length]);
+      for (const s of slides) observer.observe(s);
+    };
+
+    raf = requestAnimationFrame(trySetup);
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      observer?.disconnect();
+    };
+  }, [n]);
 
   useEffect(() => {
-    if (clients.length <= 1) return;
+    if (n <= 1) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (reduce.matches) return;
+
+    let cancelled = false;
+    let rafId = 0;
+    let lastTs = performance.now();
+
+    const tick = (now: number) => {
+      if (cancelled) return;
+      const root = scrollerRef.current;
+      const loopW = loopWidthRef.current;
+      if (!root || loopW <= 1) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      if (tabHiddenRef.current || dragRef.current.active || hoverPauseRef.current) {
+        lastTs = now;
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      const dt = Math.min(48, now - lastTs) / 1000;
+      lastTs = now;
+
+      root.scrollLeft += PLAYBACK_PX_PER_SEC * dt;
+      if (root.scrollLeft >= loopW - 1) {
+        root.scrollLeft -= loopW;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
 
     const onVisibility = () => {
       tabHiddenRef.current = document.visibilityState === 'hidden';
     };
     document.addEventListener('visibilitychange', onVisibility);
 
-    const id = window.setInterval(() => {
-      if (tabHiddenRef.current || dragRef.current.active) return;
-      const next = (activeRef.current + 1) % clients.length;
-      scrollToIndex(next);
-    }, AUTO_ADVANCE_MS);
-
     return () => {
-      window.clearInterval(id);
+      cancelled = true;
+      cancelAnimationFrame(rafId);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [clients.length, scrollToIndex]);
+  }, [n]);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -211,7 +294,7 @@ export default function HomeClientele() {
       window.removeEventListener('pointercancel', onWinUp);
       el.classList.remove('cursor-grabbing');
     };
-  }, [clients.length]);
+  }, [n, loopClients.length]);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -224,7 +307,7 @@ export default function HomeClientele() {
     };
     el.addEventListener('click', onClickCapture, true);
     return () => el.removeEventListener('click', onClickCapture, true);
-  }, [clients.length]);
+  }, [n, loopClients.length]);
 
   useEffect(() => {
     const el = scrollerRef.current;
@@ -240,9 +323,9 @@ export default function HomeClientele() {
     };
     el.addEventListener('keydown', onKey);
     return () => el.removeEventListener('keydown', onKey);
-  }, [clients.length, scrollToIndex]);
+  }, [n, scrollToIndex, loopClients.length]);
 
-  if (clients.length === 0) {
+  if (n === 0) {
     return null;
   }
 
@@ -269,27 +352,36 @@ export default function HomeClientele() {
               tabIndex={0}
               role="region"
               aria-roledescription="carousel"
-              aria-label="Our clients. Drag sideways with the mouse or trackpad to scroll. Use dots or arrow keys to jump between partners."
-              className="flex cursor-grab snap-x snap-mandatory scroll-pb-3 scroll-pt-3 scroll-smooth gap-6 overflow-x-auto overflow-y-visible px-5 py-6 [-ms-overflow-style:none] [scrollbar-width:none] outline-none selection:bg-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:scroll-auto motion-reduce:cursor-default motion-reduce:snap-none sm:gap-8 sm:px-7 sm:py-8 [&::-webkit-scrollbar]:hidden"
+              aria-label="Our clients. The list scrolls horizontally like a filmstrip. Drag to scrub, or use dots and arrow keys to jump."
+              onPointerEnter={() => {
+                hoverPauseRef.current = true;
+              }}
+              onPointerLeave={() => {
+                hoverPauseRef.current = false;
+              }}
+              className="flex cursor-grab scroll-pb-3 scroll-pt-3 gap-6 overflow-x-auto overflow-y-visible px-5 py-6 [-ms-overflow-style:none] [scrollbar-width:none] outline-none selection:bg-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:cursor-default sm:gap-8 sm:px-7 sm:py-8 [&::-webkit-scrollbar]:hidden"
             >
-              {clients.map((entry, slideIndex) => (
-                <div
-                  key={`${entry.domain}-${entry.name}`}
-                  ref={(el) => {
-                    slideRefs.current[slideIndex] = el;
-                  }}
-                  className="w-[min(22rem,calc(100%-1rem))] shrink-0 snap-center snap-always scroll-mx-2 sm:w-[min(24rem,calc(100%-1.5rem))] md:w-[min(26rem,calc(100%-2rem))] sm:scroll-mx-4"
-                  aria-roledescription="slide"
-                  aria-label={`${entry.name}, slide ${slideIndex + 1} of ${clients.length}`}
-                >
-                  <ClientCreditCard entry={entry} isActive={slideIndex === active} />
-                </div>
-              ))}
+              {loopClients.map((entry, slideIndex) => {
+                const logicalIndex = slideIndex % n;
+                return (
+                  <div
+                    key={`${entry.domain}-${entry.name}-${slideIndex}`}
+                    ref={(el) => {
+                      slideRefs.current[slideIndex] = el;
+                    }}
+                    className="w-[min(22rem,calc(100%-1rem))] shrink-0 scroll-mx-2 sm:w-[min(24rem,calc(100%-1.5rem))] md:w-[min(26rem,calc(100%-2rem))] sm:scroll-mx-4"
+                    aria-roledescription="slide"
+                    aria-label={`${entry.name}, slide ${logicalIndex + 1} of ${n}`}
+                  >
+                    <ClientCreditCard entry={entry} isActive={logicalIndex === active} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {clients.length > 1 ? (
+        {n > 1 ? (
           <div
             className="mt-8 flex max-h-24 flex-wrap items-center justify-center gap-1.5 overflow-y-auto px-2 sm:mt-10 sm:gap-2"
             role="tablist"

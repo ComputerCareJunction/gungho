@@ -58,28 +58,42 @@ export default function EventExhibitionPortfolioPage() {
             </div>
 
             <div>
-              <h3 className="mb-4 text-xl font-semibold text-white">{c.galleryHeading}</h3>
-              <div className="grid gap-5 md:grid-cols-2">
-                {c.galleryItems.map((card, index) => (
-                  <article
-                    key={card.title}
-                    className="overflow-hidden rounded-xl border border-white/10 bg-slate-900/70 shadow-lg"
-                  >
-                    <div className="h-64 w-full overflow-hidden bg-slate-950 sm:h-72">
-                      <img
-                        src={exhibitionImages[index] ?? exhibitionImages[0]}
-                        alt={card.title}
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h4 className="text-lg font-semibold text-white">{card.title}</h4>
-                      <p className="mt-2 text-sm leading-relaxed text-white/70">{card.description}</p>
-                    </div>
-                  </article>
-                ))}
+              <h3 className="mb-5 text-xl font-semibold text-white sm:mb-6">{c.galleryHeading}</h3>
+              <div className="mx-auto grid max-w-[48rem] grid-cols-2 gap-4 sm:max-w-[58rem] sm:gap-6 md:max-w-[68rem] md:gap-7 lg:max-w-[80rem] lg:grid-cols-4 lg:gap-8 xl:max-w-[88rem]">
+                {c.galleryItems.map((card, index) => {
+                  const aspectClass =
+                    index === 0
+                      ? 'aspect-[2/3]'
+                      : index === 1
+                        ? 'aspect-[3/4]'
+                        : index === 2
+                          ? 'aspect-[5/7]'
+                          : 'aspect-[4/5]';
+                  return (
+                    <article
+                      key={card.title}
+                      className="group relative w-full overflow-hidden rounded-2xl border border-white/20 bg-slate-950 shadow-[0_20px_56px_-18px_rgba(0,0,0,0.78)] ring-1 ring-black/25 sm:rounded-3xl"
+                    >
+                      <div className={`relative w-full ${aspectClass}`}>
+                        <img
+                          src={exhibitionImages[index] ?? exhibitionImages[0]}
+                          alt={card.title}
+                          className="absolute inset-0 h-full w-full object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 top-auto z-[1] m-0 w-full rounded-b-2xl border-t border-white/50 bg-white/30 px-4 pt-3 pb-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-2xl backdrop-saturate-150 sm:rounded-b-3xl sm:px-5 sm:pt-3.5 sm:pb-3.5 md:px-6 md:pt-4 md:pb-4">
+                          <h4 className="text-sm font-semibold leading-snug text-slate-950 drop-shadow-[0_1px_0_rgba(255,255,255,0.4)] sm:text-base">
+                            {card.title}
+                          </h4>
+                          <p className="mt-1.5 line-clamp-3 text-xs leading-relaxed text-slate-800/95 sm:text-sm">
+                            {card.description}
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </div>
           </section>
