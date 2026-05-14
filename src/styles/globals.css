@@ -66,23 +66,3 @@
   }
 }
 
-/* Site-wide content protection: disable selection except in form fields and marked areas */
-@layer base {
-  html {
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-  }
-
-  input,
-  textarea,
-  select,
-  option,
-  [contenteditable='true'],
-  [data-allow-copy],
-  [data-allow-select] {
-    -webkit-user-select: text;
-    user-select: text;
-    -webkit-touch-callout: default;
-  }
-}

@@ -64,7 +64,7 @@ export default function BrandVisibilityCard({
       className={`flex min-w-0 flex-col gap-2.5 ${mediaOnlyLargePreview && showLeftColumn ? 'w-full items-stretch' : 'items-center sm:items-end'}`}
     >
       <div
-        className={`group/preview relative ${previewImageBare ? 'overflow-visible' : 'overflow-hidden rounded-xl border border-white/20 bg-slate-950 shadow-md ring-1 ring-black/20'} ${mediaOnlyLargePreview ? 'h-48 min-h-[12rem] w-full min-w-0 sm:h-56 sm:min-h-[14rem] lg:h-[17rem] lg:min-h-[15rem]' : mediaOnly ? 'h-32 w-full max-w-md sm:h-36' : 'h-24 w-40 sm:h-28 sm:w-44'} ${previewSlot ? 'bg-white' : ''}`}
+        className={`group/preview relative ${previewImageBare ? 'overflow-visible' : 'overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-md ring-1 ring-slate-900/5'} ${mediaOnlyLargePreview ? 'h-48 min-h-[12rem] w-full min-w-0 sm:h-56 sm:min-h-[14rem] lg:h-[17rem] lg:min-h-[15rem]' : mediaOnly ? 'h-32 w-full max-w-md sm:h-36' : 'h-24 w-40 sm:h-28 sm:w-44'} ${previewSlot ? 'bg-slate-50' : ''}`}
       >
         {previewSlot ? (
           <div className="flex h-full w-full items-stretch justify-stretch">{previewSlot}</div>
@@ -109,7 +109,7 @@ export default function BrandVisibilityCard({
       type="button"
       onClick={onClick}
       aria-label={`${exploreLabel}: ${title}`}
-      className="group relative w-full overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-br from-slate-800/90 to-slate-900/90 p-6 text-left shadow-lg ring-1 ring-white/5 transition hover:border-primary/35 hover:from-slate-800 hover:to-slate-800 hover:shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 sm:p-8"
+      className="group relative w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-6 text-left shadow-md ring-1 ring-slate-900/5 transition hover:border-primary/35 hover:bg-slate-100 hover:shadow-lg hover:shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 sm:p-8"
     >
       <div
         className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition group-hover:opacity-100"
@@ -124,7 +124,7 @@ export default function BrandVisibilityCard({
               <img
                 src={highlightImageSrc}
                 alt={highlightImageAlt ?? ''}
-                className="max-h-48 w-full max-w-xl rounded-xl border border-white/15 object-contain object-left shadow-md ring-1 ring-black/20 sm:max-h-56"
+                className="max-h-48 w-full max-w-xl rounded-xl border border-slate-200 object-contain object-left shadow-md ring-1 ring-slate-900/5 sm:max-h-56"
               />
             </div>
           ) : showHighlightList ? (
@@ -134,7 +134,7 @@ export default function BrandVisibilityCard({
               ) : null}
               <ul className={`space-y-2.5 text-left ${highlightHeading ? 'mt-3' : ''}`}>
                 {highlightPoints.map((line, i) => (
-                  <li key={line} className="flex gap-3 text-sm leading-snug text-white/85 sm:text-base">
+                  <li key={line} className="flex gap-3 text-sm leading-snug text-slate-700 sm:text-base">
                     <span
                       className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-sm ${i % 2 === 0 ? 'bg-cyan-400' : 'bg-orange-400'}`}
                       aria-hidden
@@ -158,8 +158,8 @@ export default function BrandVisibilityCard({
               <Icon className="h-6 w-6" aria-hidden />
             </div>
             <div className="min-w-0">
-              <h3 className="text-lg font-bold text-white sm:text-xl">{title}</h3>
-              <p className="mt-2 max-w-prose text-sm leading-relaxed text-white/70 sm:text-base">{description}</p>
+              <h3 className="text-lg font-bold text-slate-900 sm:text-xl">{title}</h3>
+              <p className="mt-2 max-w-prose text-sm leading-relaxed text-slate-600 sm:text-base">{description}</p>
             </div>
           </div>
           {mediaBlock}

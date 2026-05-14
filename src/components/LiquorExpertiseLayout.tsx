@@ -60,7 +60,7 @@ function ExpertiseServiceCard({ item, icon: Icon, compact }: { item: ExpertiseIt
   const { title, description } = formatItem(item);
   return (
     <div
-      className={`group/svc flex gap-3 overflow-hidden rounded-xl border border-white/10 bg-slate-800/40 backdrop-blur-sm transition duration-300 ease-out hover:-translate-y-0.5 hover:border-primary/45 hover:bg-slate-800/65 hover:shadow-lg hover:shadow-black/25 ${compact ? 'p-3' : 'p-4 sm:gap-4 sm:p-5'}`}
+      className={`group/svc flex gap-3 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 shadow-sm backdrop-blur-sm transition duration-300 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-slate-100 hover:shadow-md ${compact ? 'p-3' : 'p-4 sm:gap-4 sm:p-5'}`}
     >
       <div
         className={`flex shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary ring-1 ring-primary/25 transition-transform duration-300 ease-out group-hover/svc:scale-110 ${compact ? 'h-9 w-9' : 'h-10 w-10 sm:h-11 sm:w-11'}`}
@@ -68,9 +68,9 @@ function ExpertiseServiceCard({ item, icon: Icon, compact }: { item: ExpertiseIt
         <Icon className={compact ? 'h-4 w-4' : 'h-5 w-5 sm:h-[22px] sm:w-[22px]'} strokeWidth={2} aria-hidden />
       </div>
       <div className="min-w-0">
-        <p className={`font-bold text-white ${compact ? 'text-xs leading-snug' : 'text-sm sm:text-base'}`}>{title}</p>
+        <p className={`font-bold text-slate-900 ${compact ? 'text-xs leading-snug' : 'text-sm sm:text-base'}`}>{title}</p>
         {description ? (
-          <p className={`mt-1 text-white/60 ${compact ? 'text-[10px] leading-tight' : 'text-xs leading-relaxed sm:text-sm'}`}>
+          <p className={`mt-1 text-slate-600 ${compact ? 'text-[10px] leading-tight' : 'text-xs leading-relaxed sm:text-sm'}`}>
             {description}
           </p>
         ) : null}
