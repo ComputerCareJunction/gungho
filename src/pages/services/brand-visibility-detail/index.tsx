@@ -4,6 +4,7 @@ import type { LucideIcon } from 'lucide-react';
 import en from '../../../locales/en.json';
 import Seo from '../../../components/Seo';
 import MarketingServicesBackNav from '../../../components/MarketingServicesBackNav';
+import { ExhibitionPortfolioCollage } from '../../../components/ExhibitionPortfolioCollage';
 import { OfficeBrandingPhotoGallery, OfficeBrandingThankYouCard } from '../../../components/OfficeBrandingShowcase';
 import exhibitionImageNightStage from '../../../assets/images/exhibition-portfolio/kings-birthday-night-stage.png';
 import exhibitionImageDayStage from '../../../assets/images/exhibition-portfolio/kings-birthday-day-stage.png';
@@ -77,18 +78,18 @@ export default function BrandVisibilityDetailPage() {
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={`/marketing-services/${item.detailSlug}`} />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="min-h-screen bg-white">
         <div className="page-content-inset py-10 pb-20 sm:py-12">
           <MarketingServicesBackNav label={detailCopy.backLink} onBack={() => navigate('/marketing-services')} />
 
-          <header className="mb-10 border-b border-white/10 pb-10">
+          <header className="mb-10 border-b border-slate-200 pb-10">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/30 bg-primary/15 text-primary">
               <Icon className="h-7 w-7" aria-hidden />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">{item.title}</h1>
-            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-white/75">{item.description}</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">{item.title}</h1>
+            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-600">{item.description}</p>
             {'pageLead' in item && typeof item.pageLead === 'string' ? (
-              <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/60">{item.pageLead}</p>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-500">{item.pageLead}</p>
             ) : null}
           </header>
 
@@ -100,41 +101,29 @@ export default function BrandVisibilityDetailPage() {
           ) : null}
 
           {showExhibitionPortfolio ? (
-            <section className="space-y-8 rounded-2xl border border-white/10 bg-slate-950/40 p-5 sm:p-8">
-              <div className="space-y-3">
-                <h2 className="text-2xl font-bold text-white sm:text-3xl">{exhibition.eventTitle}</h2>
-                <p className="text-white/80">
-                  <span className="font-semibold text-primary">{exhibition.dateLabel}: </span>
-                  {exhibition.dateValue}
-                </p>
-                <p className="text-white/80">
-                  <span className="font-semibold text-primary">{exhibition.venueLabel}: </span>
-                  {exhibition.venueValue}
-                </p>
-                <p className="max-w-4xl text-white/75">{exhibition.summary}</p>
-              </div>
+            <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-8">
+              <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-x-12 lg:gap-y-0">
+                <div className="min-w-0 space-y-3 lg:max-w-xl lg:pr-4">
+                  <h2 className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl">{exhibition.eventTitle}</h2>
+                  <p className="text-slate-700">
+                    <span className="font-semibold text-primary">{exhibition.dateLabel}: </span>
+                    {exhibition.dateValue}
+                  </p>
+                  <p className="text-slate-700">
+                    <span className="font-semibold text-primary">{exhibition.venueLabel}: </span>
+                    {exhibition.venueValue}
+                  </p>
+                  <p className="max-w-4xl text-pretty leading-relaxed text-slate-600">{exhibition.summary}</p>
+                </div>
 
-              <div>
-                <h3 className="mb-4 text-xl font-semibold text-white">{exhibition.galleryHeading}</h3>
-                <div className="grid gap-5 md:grid-cols-2">
-                  {exhibition.galleryItems.map((card, index) => (
-                    <article
-                      key={card.title}
-                      className="overflow-hidden rounded-xl border border-white/10 bg-slate-900/70 shadow-lg"
-                    >
-                      <img
-                        src={exhibitionImages[index] ?? exhibitionImages[0]}
-                        alt={card.title}
-                        className="h-56 w-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div className="p-4">
-                        <h4 className="text-lg font-semibold text-white">{card.title}</h4>
-                        <p className="mt-2 text-sm leading-relaxed text-white/70">{card.description}</p>
-                      </div>
-                    </article>
-                  ))}
+                <div className="flex min-w-0 flex-col lg:sticky lg:top-28">
+                  <div className="overflow-hidden rounded-2xl ring-1 ring-stone-200/80">
+                    <ExhibitionPortfolioCollage
+                      images={exhibitionImages}
+                      alts={exhibition.galleryItems.map((card) => card.title)}
+                      density="comfortable"
+                    />
+                  </div>
                 </div>
               </div>
             </section>

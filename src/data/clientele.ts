@@ -30,12 +30,22 @@ export type ClienteleEntry = {
   domain: string;
   /** Vite-resolved asset URL; favicon used when omitted */
   logo?: string;
+  /**
+   * When a bundled `logo` is present, the name is hidden by default (the asset is treated as a wordmark).
+   * Set `true` to show the legal name in text next to the logo (e.g. symbol-only marks).
+   */
+  showNameWithLogo?: boolean;
 };
 
 export const clienteleByColumnId: Record<string, ClienteleEntry[]> = {
   tech: [
     { name: 'Cisco', href: 'https://www.cisco.com/', domain: 'www.cisco.com', logo: logoCisco },
-    { name: 'Microsoft', href: 'https://www.microsoft.com/', domain: 'www.microsoft.com', logo: logoMicrosoft },
+    {
+      name: 'Microsoft',
+      href: 'https://www.microsoft.com/',
+      domain: 'www.microsoft.com',
+      logo: logoMicrosoft
+    },
     { name: 'Autodesk', href: 'https://www.autodesk.com/', domain: 'www.autodesk.com', logo: logoAutodesk },
     { name: 'UiPath', href: 'https://www.uipath.com/', domain: 'www.uipath.com', logo: logoUiPath },
     {

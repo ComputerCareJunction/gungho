@@ -10,7 +10,11 @@
     "ourServices": "Our Services",
     "eventManagement": "Event Management",
     "marketingServices": "Marketing Services",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "servicesMegaEyebrow": "Our services",
+    "servicesMegaFeaturedEyebrow": "From the field",
+    "servicesMegaFeaturedCta": "View showcase",
+    "servicesMegaFeaturedImageAlt": "Energy Week Goa — event showcase photo"
   },
   "footer": {
     "brandDescription": "Delivering excellence in event management and marketing services. Your success is our mission.",
@@ -91,14 +95,13 @@
     "subtitle": "Creating unforgettable experiences with precision and passion",
     "exhibitionPortfolio": {
       "cardTitle": "Exhibition Portfolio",
-      "cardDescription": "Discover King's Birthday Party, Delhi showcase with stage design, guest journey, and networking setup.",
+      "seeMoreLabel": "See more+",
       "eventTitle": "King's Birthday Party, Delhi",
       "dateLabel": "Date",
       "dateValue": "31st October, 2025",
       "venueLabel": "Venue",
       "venueValue": "British High Commissioner Residence, New Delhi",
       "summary": "KBP as an networking event was celebrated to promote – Great Britain and India relationship.",
-      "galleryHeading": "Exhibition portfolio highlights",
       "galleryItems": [
         {
           "title": "Evening Stage Activation",
@@ -161,7 +164,6 @@
       "venueLabel": "Venue",
       "venueValue": "British High Commissioner Residence, New Delhi",
       "summary": "KBP as an networking event was celebrated to promote – Great Britain and India relationship.",
-      "galleryHeading": "Exhibition portfolio highlights",
       "galleryItems": [
         {
           "title": "Evening Stage Activation",

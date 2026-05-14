@@ -96,14 +96,14 @@ export function OfficeBrandingPhotoGallery() {
 
   return (
     <section aria-label={bv.officeBrandingGalleryHeading}>
-      <h2 className="mb-4 text-lg font-semibold text-white sm:text-xl">{bv.officeBrandingGalleryHeading}</h2>
+      <h2 className="mb-4 text-lg font-semibold text-slate-900 sm:text-xl">{bv.officeBrandingGalleryHeading}</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {officeBrandingGallerySources.map((src, i) => (
           <button
             key={src}
             type="button"
             onClick={() => setActiveIndex(i)}
-            className="group relative block w-full cursor-pointer overflow-hidden rounded-xl border border-slate-600/60 bg-slate-900/50 text-left shadow-lg ring-0 transition hover:border-primary/45 hover:shadow-lg hover:shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            className="group relative block w-full cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-slate-50 text-left shadow-md ring-0 transition hover:border-primary/45 hover:bg-slate-100 hover:shadow-lg hover:shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50"
             aria-label={`${lb.openHint}: ${bv.officeBrandingGalleryAlt} (${i + 1})`}
           >
             <img
@@ -203,7 +203,7 @@ export function OfficeBrandingThankYouCard() {
   const thankYou = bv.thankYouClosing;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-300/90 bg-white px-6 py-10 text-slate-900 shadow-xl sm:px-10 sm:py-12">
+    <div className="overflow-hidden rounded-2xl border border-slate-300/90 bg-slate-50 px-6 py-10 text-slate-900 shadow-xl sm:px-10 sm:py-12">
       <div className="mx-auto max-w-2xl">
         <div className="flex flex-col gap-4 sm:gap-5">
           <div className="flex flex-wrap items-baseline gap-3 sm:gap-4">

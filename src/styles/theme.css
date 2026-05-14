@@ -4,7 +4,8 @@
   --font-size: 16px;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
+  /* Card surface: same as previous hover:bg-slate-50 on light cards */
+  --card: #f8fafc;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -124,6 +125,14 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    @apply bg-background;
+  }
+
+  #app {
+    @apply min-h-screen bg-background;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -171,6 +180,60 @@
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
+    cursor: pointer;
+  }
+
+  button:disabled,
+  button[disabled] {
+    cursor: not-allowed;
+  }
+
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  [role='button'][aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
+  a[href] {
+    cursor: pointer;
+  }
+
+  label[for] {
+    cursor: pointer;
+  }
+
+  summary {
+    cursor: pointer;
+  }
+
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='file'],
+  input[type='range'],
+  select {
+    cursor: pointer;
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='password'],
+  input[type='number'],
+  input[type='date'],
+  input[type='time'],
+  input:not([type]) {
+    cursor: text;
+  }
+
+  textarea {
+    cursor: text;
   }
 
   input {

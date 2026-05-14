@@ -34,7 +34,7 @@ export default function About() {
         description={en.seo.aboutDescription}
         path="/about"
       />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 py-20">
         <div className="absolute inset-0 bg-black/10"></div>
@@ -155,24 +155,24 @@ export default function About() {
       </section>
 
       {/* Values Section */}
-      <div className="bg-slate-900/50 py-20">
+      <div className="bg-slate-50 py-20">
         <div className="page-content-inset">
-          <h2 className="text-4xl font-bold text-white text-center mb-12">
+          <h2 className="text-4xl font-bold text-slate-900 text-center mb-12">
             {en.aboutPage.coreValuesTitle}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 hover:border-primary/50 transition-all"
+                className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-primary/40 hover:bg-slate-100 transition-all shadow-sm"
               >
                 <div className="text-primary mb-4">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
                   {value.title}
                 </h3>
-                <p className="text-white/70">
+                <p className="text-slate-600">
                   {value.description}
                 </p>
               </div>

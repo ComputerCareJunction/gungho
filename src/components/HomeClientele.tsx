@@ -9,37 +9,38 @@ function faviconUrl(domain: string) {
   return `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=128`;
 }
 
-/** ID-1 card proportions (width / height) */
-const CARD_ASPECT = '85.6 / 53.98' as const;
+/** Fixed viewport so every logo (wordmark or icon) scales to the same slot. */
+const LOGO_BOX =
+  'flex h-[4.5rem] w-[7.25rem] shrink-0 items-center justify-center sm:h-[5.5rem] sm:w-[10.5rem] md:h-32 md:w-[13rem]';
 
-function ClientCreditCard({ entry, isActive }: { entry: ClienteleEntry; isActive: boolean }) {
+function ClientLogoLink({ entry, isActive }: { entry: ClienteleEntry; isActive: boolean }) {
   const [imgError, setImgError] = useState(false);
   const imgSrc = entry.logo ?? faviconUrl(entry.domain);
+  const hideName = Boolean(entry.logo && !imgError && entry.showNameWithLogo !== true);
 
   return (
     <a
       href={entry.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative isolate mx-auto block w-full max-w-[min(22rem,calc(100%-0.5rem))] overflow-hidden rounded-[14px] border border-primary/25 bg-[linear-gradient(180deg,#ffffff_0%,#ffffff_70%,var(--color-primary)_70%,var(--color-primary)_100%)] shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.55),inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 transition-[box-shadow,opacity,filter] duration-300 ease-out hover:shadow-[0_28px_56px_-14px_rgba(0,0,0,0.5),0_0_48px_-14px_color-mix(in_oklab,var(--color-primary)_22%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none sm:max-w-[24rem] sm:rounded-2xl md:max-w-[26rem] ${
-        isActive
-          ? 'translate-y-0 scale-100 opacity-100 saturate-100 ring-primary/40'
-          : 'translate-y-0 scale-100 opacity-[0.88] saturate-[0.92] ring-primary/15 hover:opacity-95'
-      }`}
-      style={{ aspectRatio: CARD_ASPECT }}
+      className={`group mx-auto flex w-full max-w-full rounded-lg px-1.5 py-1.5 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:px-3 sm:py-2 ${
+        hideName
+          ? 'min-h-[7.5rem] flex-col items-center justify-center gap-0 sm:min-h-[8.5rem]'
+          : 'min-h-[7.5rem] flex-row items-center justify-center gap-3 sm:min-h-[8.5rem] sm:gap-4'
+      } ${isActive ? 'opacity-100' : 'opacity-[0.88] hover:opacity-100'}`}
       aria-label={`${entry.name} — opens partner site in a new tab`}
     >
-      <div className="pointer-events-none absolute left-1/2 top-[38%] z-[2] flex w-[88%] max-w-[16.5rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center sm:top-[37%] sm:max-w-[18rem]">
+      <div className={LOGO_BOX}>
         {!imgError ? (
           <img
             src={imgSrc}
             alt=""
-            width={140}
-            height={56}
+            width={200}
+            height={80}
             loading="lazy"
             decoding="async"
             draggable={false}
-            className="max-h-[34%] w-auto max-w-[88%] object-contain drop-shadow-sm transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] motion-reduce:transition-none sm:max-h-[36%]"
+            className="max-h-[92%] max-w-[92%] object-contain object-center transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transition-none"
             onError={() => setImgError(true)}
           />
         ) : (
@@ -59,12 +60,11 @@ function ClientCreditCard({ entry, isActive }: { entry: ClienteleEntry; isActive
           </svg>
         )}
       </div>
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-center px-3 pb-3.5 pt-2 text-center sm:px-4 sm:pb-4 sm:pt-2.5">
-        <p className="line-clamp-2 max-w-[95%] text-[0.65rem] font-semibold uppercase leading-snug tracking-[0.1em] text-primary-foreground sm:text-xs">
+      {!hideName ? (
+        <p className="min-w-0 flex-1 self-center text-left text-sm font-semibold leading-snug text-slate-800 transition-colors group-hover:text-primary sm:text-base">
           {entry.name}
         </p>
-      </div>
+      ) : null}
     </a>
   );
 }
@@ -331,36 +331,39 @@ export default function HomeClientele() {
 
   return (
     <section
-      className="relative border-t border-white/10 bg-transparent text-white"
+      className="relative border-t border-slate-200 bg-white text-slate-900"
       aria-labelledby="home-clientele-heading"
     >
-      <div className="page-content-inset relative pb-16 pt-10 text-center sm:pb-20 sm:pt-12 md:pb-24 md:pt-14">
+      <div className="page-content-inset relative pb-16 pt-10 text-center sm:pb-20 sm:pt-12 md:pb-24 md:pt-14 lg:pb-32">
         <h2
           id="home-clientele-heading"
-          className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
+          className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl"
         >
           {c.title}
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-slate-400 sm:mt-4 sm:text-base">
+        <p className="mx-auto mt-3 max-w-2xl text-pretty text-sm leading-relaxed text-slate-600 sm:mt-4 sm:text-base">
           {c.subtitle}
         </p>
 
         <div className="relative mt-8 min-w-0 sm:mt-10 md:mt-12">
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_16px_48px_-18px_rgba(0,0,0,0.7)] ring-1 ring-white/5 backdrop-blur-md [mask-image:linear-gradient(90deg,transparent_0%,black_5%,black_95%,transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,black_5%,black_95%,transparent_100%)]">
-            <div
-              ref={scrollerRef}
-              tabIndex={0}
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="Our clients. The list scrolls horizontally like a filmstrip. Drag to scrub, or use dots and arrow keys to jump."
-              onPointerEnter={() => {
+          <div
+            ref={scrollerRef}
+            tabIndex={0}
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Our clients. The list scrolls horizontally like a filmstrip. Drag to scrub, or use dots and arrow keys to jump."
+            onPointerEnter={() => {
+              if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
                 hoverPauseRef.current = true;
-              }}
-              onPointerLeave={() => {
+              }
+            }}
+            onPointerLeave={() => {
+              if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
                 hoverPauseRef.current = false;
-              }}
-              className="flex cursor-grab scroll-pb-3 scroll-pt-3 gap-6 overflow-x-auto overflow-y-visible px-5 py-6 [-ms-overflow-style:none] [scrollbar-width:none] outline-none selection:bg-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:cursor-default sm:gap-8 sm:px-7 sm:py-8 [&::-webkit-scrollbar]:hidden"
-            >
+              }
+            }}
+            className="flex max-md:snap-none cursor-grab items-stretch scroll-pb-3 scroll-pt-3 gap-1 overflow-x-auto overflow-y-visible px-0.5 py-3 [-ms-overflow-style:none] [scrollbar-width:none] outline-none selection:bg-primary/30 focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-reduce:cursor-default motion-reduce:snap-none md:snap-x md:snap-mandatory sm:gap-3 sm:px-1.5 sm:py-5 md:gap-4 md:px-2 md:py-6 [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(90deg,transparent_0%,black_5%,black_95%,transparent_100%)] [-webkit-mask-image:linear-gradient(90deg,transparent_0%,black_5%,black_95%,transparent_100%)]"
+          >
               {loopClients.map((entry, slideIndex) => {
                 const logicalIndex = slideIndex % n;
                 return (
@@ -369,15 +372,14 @@ export default function HomeClientele() {
                     ref={(el) => {
                       slideRefs.current[slideIndex] = el;
                     }}
-                    className="w-[min(22rem,calc(100%-1rem))] shrink-0 scroll-mx-2 sm:w-[min(24rem,calc(100%-1.5rem))] md:w-[min(26rem,calc(100%-2rem))] sm:scroll-mx-4"
+                    className="flex w-[min(13.5rem,calc(100vw-1.25rem))] shrink-0 scroll-mx-0.5 self-stretch items-center justify-center sm:w-[min(20rem,calc(100%-0.75rem))] sm:scroll-mx-2 md:snap-center"
                     aria-roledescription="slide"
                     aria-label={`${entry.name}, slide ${logicalIndex + 1} of ${n}`}
                   >
-                    <ClientCreditCard entry={entry} isActive={logicalIndex === active} />
+                    <ClientLogoLink entry={entry} isActive={logicalIndex === active} />
                   </div>
                 );
               })}
-            </div>
           </div>
         </div>
 
@@ -394,8 +396,8 @@ export default function HomeClientele() {
                 role="tab"
                 aria-selected={i === active}
                 aria-label={`Go to ${entry.name}`}
-                className={`h-2 shrink-0 rounded-full transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-                  i === active ? 'w-7 bg-sky-400 shadow-[0_0_14px_-2px_rgba(56,189,248,0.55)] sm:w-8' : 'w-2 bg-white/25 hover:bg-white/45 sm:w-2.5'
+                className={`h-2 shrink-0 rounded-full transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
+                  i === active ? 'w-7 bg-sky-500 shadow-[0_0_14px_-2px_rgba(14,165,233,0.45)] sm:w-8' : 'w-2 bg-slate-300 hover:bg-slate-400 sm:w-2.5'
                 }`}
                 onClick={() => scrollToIndex(i)}
               />

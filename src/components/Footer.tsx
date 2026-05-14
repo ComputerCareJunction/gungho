@@ -7,26 +7,26 @@ export default function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-800">
+    <footer className="relative z-10 border-t border-primary/15 bg-gradient-to-b from-orange-50 via-orange-50 to-amber-50/90">
       <div className="page-content-inset py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">
             <img src={logo} alt={en.navigation.logoAlt} className="h-16 w-auto mb-4" />
-            <p className="text-white/60 mb-6 max-w-md">
+            <p className="text-stone-600 mb-6 max-w-md">
               {en.footer.brandDescription}
             </p>
             <div className="flex gap-4">
-              <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-primary text-white/70 hover:text-white transition-all flex items-center justify-center">
+              <button className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/15 bg-primary/[0.06] text-stone-600 transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground">
                 <Facebook className="w-5 h-5" />
               </button>
-              <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-primary text-white/70 hover:text-white transition-all flex items-center justify-center">
+              <button className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/15 bg-primary/[0.06] text-stone-600 transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground">
                 <Twitter className="w-5 h-5" />
               </button>
-              <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-primary text-white/70 hover:text-white transition-all flex items-center justify-center">
+              <button className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/15 bg-primary/[0.06] text-stone-600 transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground">
                 <Linkedin className="w-5 h-5" />
               </button>
-              <button className="w-10 h-10 rounded-full bg-slate-800 hover:bg-primary text-white/70 hover:text-white transition-all flex items-center justify-center">
+              <button className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/15 bg-primary/[0.06] text-stone-600 transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground">
                 <Instagram className="w-5 h-5" />
               </button>
             </div>
@@ -34,12 +34,12 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-4">{en.footer.quickLinks}</h3>
+            <h3 className="mb-4 font-semibold text-stone-900">{en.footer.quickLinks}</h3>
             <ul className="space-y-3">
               <li>
                 <button
                   onClick={() => navigate('/')}
-                  className="text-white/60 hover:text-primary transition-colors"
+                  className="text-stone-600 transition-colors hover:text-primary"
                 >
                   {en.navigation.home}
                 </button>
@@ -47,7 +47,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => navigate('/event-management')}
-                  className="text-white/60 hover:text-primary transition-colors"
+                  className="text-stone-600 transition-colors hover:text-primary"
                 >
                   {en.navigation.eventManagement}
                 </button>
@@ -55,7 +55,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => navigate('/marketing-services')}
-                  className="text-white/60 hover:text-primary transition-colors"
+                  className="text-stone-600 transition-colors hover:text-primary"
                 >
                   {en.navigation.marketingServices}
                 </button>
@@ -63,7 +63,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => navigate('/about')}
-                  className="text-white/60 hover:text-primary transition-colors"
+                  className="text-stone-600 transition-colors hover:text-primary"
                 >
                   {en.navigation.about}
                 </button>
@@ -71,7 +71,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => navigate('/contact')}
-                  className="text-white/60 hover:text-primary transition-colors"
+                  className="text-stone-600 transition-colors hover:text-primary"
                 >
                   {en.navigation.contactUs}
                 </button>
@@ -81,18 +81,18 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-white font-semibold mb-4">{en.footer.contactUs}</h3>
+            <h3 className="mb-4 font-semibold text-stone-900">{en.footer.contactUs}</h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-white/60">
-                <Mail className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
+              <li className="flex items-start gap-3 text-stone-600">
+                <Mail className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                 <span>{en.footer.emails[0]}</span>
               </li>
-              <li className="flex items-start gap-3 text-white/60">
-                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
+              <li className="flex items-start gap-3 text-stone-600">
+                <Phone className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                 <span>{en.footer.phoneNumbers[0]}</span>
               </li>
-              <li className="flex items-start gap-3 text-white/60">
-                <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
+              <li className="flex items-start gap-3 text-stone-600">
+                <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
                 <span>{en.footer.address}</span>
               </li>
             </ul>
@@ -100,26 +100,26 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/40 text-sm">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-primary/15 pt-8 md:flex-row">
+          <p className="text-sm text-stone-500">
             © {new Date().getFullYear()} {en.footer.copyright}
           </p>
           <div className="flex gap-6 text-sm">
             <button
               onClick={() => navigate('/privacy-policy')}
-              className="text-white/40 hover:text-primary transition-colors"
+              className="text-stone-500 transition-colors hover:text-primary"
             >
               {en.footer.privacyPolicy}
             </button>
             <button
               onClick={() => navigate('/terms-of-service')}
-              className="text-white/40 hover:text-primary transition-colors"
+              className="text-stone-500 transition-colors hover:text-primary"
             >
               {en.footer.termsOfService}
             </button>
             <button
               onClick={() => navigate('/cookie-policy')}
-              className="text-white/40 hover:text-primary transition-colors"
+              className="text-stone-500 transition-colors hover:text-primary"
             >
               {en.footer.cookiePolicy}
             </button>

@@ -61,7 +61,7 @@ export default function ContactUs() {
         description={en.seo.contactDescription}
         path="/contact"
       />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-primary to-primary/90 py-16">
         <div className="page-content-inset text-center">
@@ -78,31 +78,31 @@ export default function ContactUs() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
-              <h2 className="text-3xl font-bold text-white mb-6">{en.contactPage.sendMessageTitle}</h2>
+            <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200 shadow-sm">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">{en.contactPage.sendMessageTitle}</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-white/70 mb-2">{en.contactPage.fields.fullName}</label>
+                    <label className="block text-slate-600 mb-2">{en.contactPage.fields.fullName}</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:border-primary focus:outline-none transition-colors"
+                      className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none transition-colors"
                       placeholder={en.contactPage.placeholders.name}
                     />
                   </div>
                   <div>
-                    <label className="block text-white/70 mb-2">{en.contactPage.fields.email}</label>
+                    <label className="block text-slate-600 mb-2">{en.contactPage.fields.email}</label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:border-primary focus:outline-none transition-colors"
+                      className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none transition-colors"
                       placeholder={en.contactPage.placeholders.email}
                     />
                   </div>
@@ -110,24 +110,24 @@ export default function ContactUs() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-white/70 mb-2">{en.contactPage.fields.phone}</label>
+                    <label className="block text-slate-600 mb-2">{en.contactPage.fields.phone}</label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:border-primary focus:outline-none transition-colors"
+                      className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none transition-colors"
                       placeholder={en.contactPage.placeholders.phone}
                     />
                   </div>
                   <div>
-                    <label className="block text-white/70 mb-2">{en.contactPage.fields.serviceInterested}</label>
+                    <label className="block text-slate-600 mb-2">{en.contactPage.fields.serviceInterested}</label>
                     <select
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
                       required
-                      className="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors"
+                      className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-slate-900 focus:border-primary focus:outline-none transition-colors"
                     >
                       <option value="">{en.contactPage.placeholders.service}</option>
                       <option value="event-management">{en.contactPage.serviceOptions.eventManagement}</option>
@@ -139,14 +139,14 @@ export default function ContactUs() {
                 </div>
 
                 <div>
-                  <label className="block text-white/70 mb-2">{en.contactPage.fields.message}</label>
+                  <label className="block text-slate-600 mb-2">{en.contactPage.fields.message}</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:border-primary focus:outline-none transition-colors resize-none"
+                    className="w-full bg-white border border-slate-300 rounded-lg px-4 py-3 text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none transition-colors resize-none"
                     placeholder={en.contactPage.placeholders.message}
                   />
                 </div>
@@ -167,16 +167,16 @@ export default function ContactUs() {
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 rounded-xl p-6 border border-slate-700 hover:border-primary/50 transition-all"
+                className="bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm hover:border-primary/40 hover:bg-slate-100 transition-all"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary flex-shrink-0">
                     {info.icon}
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold mb-2">{info.title}</h3>
+                    <h3 className="text-slate-900 font-semibold mb-2">{info.title}</h3>
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-white/70 text-sm">
+                      <p key={idx} className="text-slate-600 text-sm">
                         {detail}
                       </p>
                     ))}
@@ -188,8 +188,8 @@ export default function ContactUs() {
         </div>
 
         {/* Full Width Google Map */}
-        <div className="mt-8 bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-          <div className="h-96 md:h-96 overflow-hidden rounded-lg border border-slate-700">
+        <div className="mt-8 bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
+          <div className="h-96 md:h-96 overflow-hidden rounded-lg border border-slate-200">
             <iframe
               title={en.contactPage.contactInfo.mapPlaceholder}
               src={en.contactPage.contactInfo.mapEmbedUrl}
@@ -202,12 +202,12 @@ export default function ContactUs() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-slate-900/50 py-16">
+      <div className="bg-slate-50 py-16">
         <div className="page-content-inset text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">
             {en.contactPage.ctaTitle}
           </h2>
-          <p className="text-white/70 mb-8">
+          <p className="text-slate-600 mb-8">
             {en.contactPage.ctaSubtitle}
           </p>
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 rounded-lg font-semibold transition-colors">

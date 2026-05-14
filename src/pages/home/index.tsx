@@ -1,13 +1,50 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useState, type MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/images/gungho-logo.png';
+import { ArrowRight, CalendarDays, TrendingUp } from 'lucide-react';
 import en from '../../locales/en.json';
 import Seo from '../../components/Seo';
 import HomeClientele from '../../components/HomeClientele';
 import HomeAnimatedStats from '../../components/HomeAnimatedStats';
 
+const heroGlassCardClassName = [
+  'group relative flex min-h-full flex-col overflow-hidden rounded-2xl border border-white/55',
+  'bg-gradient-to-br from-white/45 via-white/25 to-white/[0.18]',
+  'p-6 text-left shadow-[inset_0_1px_0_0_rgba(255,255,255,0.75),inset_0_-1px_0_0_rgba(15,23,42,0.04),0_14px_44px_-16px_rgba(15,23,42,0.18)]',
+  'ring-1 ring-white/35 ring-inset backdrop-blur-2xl backdrop-saturate-150',
+  'cursor-pointer will-change-transform',
+  'transition-[transform,opacity,box-shadow,border-color,filter,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50',
+  'motion-reduce:transition-opacity motion-reduce:duration-200 sm:p-7 lg:p-8',
+].join(' ');
+
+const heroGlassIconWrapClassName = [
+  'relative mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl',
+  'border border-white/55 bg-white/30 text-primary shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65)]',
+  'ring-1 ring-white/30 backdrop-blur-md backdrop-saturate-125',
+  'transition-[transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+  'motion-reduce:transition-none',
+].join(' ');
+
+const heroGlassCtaClassName = [
+  'relative mt-8 inline-flex items-center gap-2 self-start rounded-full',
+  'border border-white/50 bg-white/25 px-4 py-2 text-sm font-semibold text-primary shadow-[inset_0_1px_0_0_rgba(255,255,255,0.55)]',
+  'backdrop-blur-md backdrop-saturate-125',
+  'transition-[background-color,border-color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+  'motion-reduce:transition-colors motion-reduce:duration-200',
+].join(' ');
+
+type HeroHoveredCard = 'event' | 'marketing' | null;
+
 export default function HomePage() {
   const navigate = useNavigate();
+  const heroCardsRef = useRef<HTMLDivElement>(null);
+  const [heroHovered, setHeroHovered] = useState<HeroHoveredCard>(null);
+
+  const handleHeroCardLeave = (e: MouseEvent) => {
+    const next = e.relatedTarget as Node | null;
+    if (heroCardsRef.current && next && heroCardsRef.current.contains(next)) return;
+    setHeroHovered(null);
+  };
 
   const stats = useMemo(
     () => [
@@ -26,138 +63,180 @@ export default function HomePage() {
         description={en.seo.homeDescription}
         path="/"
       />
-      <div className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 pt-20 sm:pt-24 md:pt-28 lg:pt-32">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 h-96 w-96 animate-pulse rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 h-96 w-96 animate-pulse rounded-full bg-primary/10 blur-3xl home-anim-delay-1s" />
-          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-700/20 blur-3xl" />
-
+      {/* Full-viewport atmosphere: paints behind sticky navbar (nav has higher z-index). */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-gradient-to-b from-slate-50 via-white to-white"
+        aria-hidden
+      >
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -left-40 top-0 h-[min(28rem,55vh)] w-[22rem] rounded-full bg-gradient-to-br from-primary/28 via-primary/12 to-transparent blur-3xl sm:h-[32rem] sm:w-[28rem]" />
+          <div className="absolute -bottom-44 -right-32 h-[26rem] w-[26rem] rounded-full bg-gradient-to-tl from-amber-100/80 via-orange-50/40 to-transparent blur-3xl sm:h-[32rem] sm:w-[32rem]" />
+          <div className="absolute inset-x-0 top-0 h-[min(85vh,48rem)] bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,rgba(249,115,22,0.11),transparent_58%)]" />
           <div
-            className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:100px_100px]"
-            aria-hidden
-          />
-
-          <div
-            className="animate-float absolute left-10 top-20 h-20 w-20 rotate-12 rounded-lg border border-primary/20"
-            aria-hidden
-          />
-          <div
-            className="animate-float-delayed absolute bottom-40 right-20 h-16 w-16 rounded-full border border-primary/20"
+            className="absolute inset-0 opacity-[0.35] bg-[linear-gradient(rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.035)_1px,transparent_1px)] bg-[size:72px_72px]"
             aria-hidden
           />
           <div
-            className="animate-float absolute right-1/4 top-1/3 h-12 w-12 rotate-45 rounded-lg border border-white/10"
+            className="animate-float absolute left-[8%] top-[min(22%,12rem)] hidden h-16 w-16 rotate-12 rounded-2xl border border-primary/15 bg-white/40 shadow-sm sm:block"
+            aria-hidden
+          />
+          <div
+            className="animate-float-delayed absolute bottom-[18%] right-[10%] hidden h-14 w-14 rounded-full border border-primary/15 bg-white/40 shadow-sm md:block"
             aria-hidden
           />
         </div>
+      </div>
 
-        <div className="relative z-10 flex flex-col gap-16 sm:gap-20 md:gap-24 lg:gap-28">
-          <div className="flex items-center justify-center">
-            <div className="page-content-inset flex w-full flex-col items-stretch gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+      <div className="relative z-10 flex flex-col">
+        <section
+          aria-labelledby="home-hero-heading"
+          className="page-content-inset pb-14 pt-8 max-md:pt-6 sm:pb-16 sm:pt-10 md:pb-20 md:pt-28 lg:pb-24 lg:pt-32"
+        >
+            <h1 id="home-hero-heading" className="sr-only">
+              {en.home.leftCardTitle} · {en.home.rightCardTitle}
+            </h1>
+            <div
+              ref={heroCardsRef}
+              className="mx-auto grid max-w-5xl gap-5 sm:grid-cols-2 sm:gap-6 lg:gap-8"
+            >
               <button
                 type="button"
                 onClick={() => navigate('/event-management')}
-                className="group relative flex-1 overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-primary/30 sm:p-10"
+                onMouseEnter={() => setHeroHovered('event')}
+                onMouseLeave={handleHeroCardLeave}
+                className={[
+                  heroGlassCardClassName,
+                  heroHovered === 'event'
+                    ? 'z-10 scale-[1.03] -translate-y-2 border-white/90 from-white/60 via-white/38 to-white/[0.28] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),inset_0_-1px_0_0_rgba(15,23,42,0.05),0_28px_70px_-22px_rgba(249,115,22,0.35)] ring-2 ring-primary/35 motion-reduce:translate-y-0 motion-reduce:scale-100'
+                    : '',
+                  heroHovered === 'marketing'
+                    ? 'opacity-[0.52] saturate-[0.82] scale-[0.96] translate-y-0.5 motion-reduce:scale-100 motion-reduce:translate-y-0'
+                    : '',
+                ].join(' ')}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-primary/50 to-primary/40 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-20" />
-
-                <div className="relative z-10 text-left">
-                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/30 bg-primary/20">
-                    <svg className="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <h2 className="mb-3 text-xl font-bold leading-tight text-white md:text-2xl">
-                    {en.home.leftCardTitle}
-                  </h2>
-                  <div className="mt-8 flex items-center gap-2 font-semibold text-primary">
-                    <span className="transition-transform duration-300 group-hover:translate-x-2">
-                      {en.home.exploreServices}
-                    </span>
-                    <svg
-                      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="absolute right-0 top-0 h-32 w-32 rounded-bl-full bg-gradient-to-br from-primary/20 to-transparent opacity-50" aria-hidden />
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-white/55 via-transparent to-transparent opacity-70"
+                  aria-hidden
+                />
+                <span
+                  className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-80"
+                  aria-hidden
+                />
+                <span
+                  className={[
+                    'pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.18] via-transparent to-primary/[0.06] transition-opacity duration-500 ease-out motion-reduce:transition-none',
+                    heroHovered === 'event' ? 'opacity-100' : 'opacity-0',
+                  ].join(' ')}
+                  aria-hidden
+                />
+                <span
+                  className={[
+                    heroGlassIconWrapClassName,
+                    heroHovered === 'event'
+                      ? 'scale-110 -rotate-3 border-white/75 bg-white/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_10px_28px_-10px_rgba(249,115,22,0.35)] motion-reduce:scale-100 motion-reduce:rotate-0'
+                      : '',
+                    heroHovered === 'marketing' ? 'scale-95 opacity-80 motion-reduce:scale-100' : '',
+                  ].join(' ')}
+                >
+                  <CalendarDays className="h-7 w-7" strokeWidth={1.75} aria-hidden />
+                </span>
+                <h2 className="relative text-balance text-lg font-bold uppercase leading-snug tracking-[0.04em] text-slate-900 drop-shadow-[0_1px_0_rgba(255,255,255,0.45)] sm:text-xl lg:text-[1.35rem] lg:leading-snug">
+                  {en.home.leftCardTitle}
+                </h2>
+                <span
+                  className={[
+                    heroGlassCtaClassName,
+                    heroHovered === 'event'
+                      ? 'border-white/80 bg-white/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.82),0_8px_26px_-10px_rgba(249,115,22,0.28)]'
+                      : '',
+                    heroHovered === 'marketing' ? 'opacity-75' : '',
+                  ].join(' ')}
+                >
+                  <span>{en.home.exploreServices}</span>
+                  <ArrowRight
+                    className={[
+                      'h-4 w-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+                      heroHovered === 'event' ? 'translate-x-1.5' : '',
+                    ].join(' ')}
+                    aria-hidden
+                  />
+                </span>
               </button>
-
-              <div className="mx-auto flex shrink-0 lg:mx-0">
-                <div className="group relative">
-                  <div className="relative rounded-[2rem] border border-white/30 bg-white/15 p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:shadow-primary/20 sm:p-10">
-                    <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-br from-primary/30 to-white/30 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-30" />
-                    <div className="relative rounded-3xl bg-white p-8 shadow-xl">
-                      <img src={logo} alt={en.navigation.logoAlt} className="h-auto w-64 max-w-full" />
-                    </div>
-                    <div className="absolute -left-2 -top-2 h-8 w-8 rounded-full border-2 border-primary/50" aria-hidden />
-                    <div className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full border-2 border-primary/50" aria-hidden />
-                  </div>
-                </div>
-              </div>
 
               <button
                 type="button"
                 onClick={() => navigate('/marketing-services')}
-                className="group relative flex-1 overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:bg-white/15 hover:shadow-primary/30 sm:p-10"
+                onMouseEnter={() => setHeroHovered('marketing')}
+                onMouseLeave={handleHeroCardLeave}
+                className={[
+                  heroGlassCardClassName,
+                  heroHovered === 'marketing'
+                    ? 'z-10 scale-[1.03] -translate-y-2 border-white/90 from-white/60 via-white/38 to-white/[0.28] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.92),inset_0_-1px_0_0_rgba(15,23,42,0.05),0_28px_70px_-22px_rgba(249,115,22,0.35)] ring-2 ring-primary/35 motion-reduce:translate-y-0 motion-reduce:scale-100'
+                    : '',
+                  heroHovered === 'event'
+                    ? 'opacity-[0.52] saturate-[0.82] scale-[0.96] translate-y-0.5 motion-reduce:scale-100 motion-reduce:translate-y-0'
+                    : '',
+                ].join(' ')}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-primary/50 to-slate-500/50 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-20" />
-
-                <div className="relative z-10 text-left">
-                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-primary/30 bg-primary/20">
-                    <svg className="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                      />
-                    </svg>
-                  </div>
-                  <h2 className="mb-3 text-xl font-bold leading-tight text-white md:text-2xl">
-                    {en.home.rightCardTitle}
-                  </h2>
-                  <div className="mt-8 flex items-center gap-2 font-semibold text-primary">
-                    <span className="transition-transform duration-300 group-hover:translate-x-2">
-                      {en.home.exploreServices}
-                    </span>
-                    <svg
-                      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-0 left-0 h-32 w-32 rounded-tr-full bg-gradient-to-tl from-primary/20 to-transparent opacity-50" aria-hidden />
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-white/55 via-transparent to-transparent opacity-70"
+                  aria-hidden
+                />
+                <span
+                  className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-80"
+                  aria-hidden
+                />
+                <span
+                  className={[
+                    'pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.18] via-transparent to-primary/[0.06] transition-opacity duration-500 ease-out motion-reduce:transition-none',
+                    heroHovered === 'marketing' ? 'opacity-100' : 'opacity-0',
+                  ].join(' ')}
+                  aria-hidden
+                />
+                <span
+                  className={[
+                    heroGlassIconWrapClassName,
+                    heroHovered === 'marketing'
+                      ? 'scale-110 rotate-3 border-white/75 bg-white/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_10px_28px_-10px_rgba(249,115,22,0.35)] motion-reduce:scale-100 motion-reduce:rotate-0'
+                      : '',
+                    heroHovered === 'event' ? 'scale-95 opacity-80 motion-reduce:scale-100' : '',
+                  ].join(' ')}
+                >
+                  <TrendingUp className="h-7 w-7" strokeWidth={1.75} aria-hidden />
+                </span>
+                <h2 className="relative text-balance text-lg font-bold uppercase leading-snug tracking-[0.04em] text-slate-900 drop-shadow-[0_1px_0_rgba(255,255,255,0.45)] sm:text-xl lg:text-[1.35rem] lg:leading-snug">
+                  {en.home.rightCardTitle}
+                </h2>
+                <span
+                  className={[
+                    heroGlassCtaClassName,
+                    heroHovered === 'marketing'
+                      ? 'border-white/80 bg-white/45 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.82),0_8px_26px_-10px_rgba(249,115,22,0.28)]'
+                      : '',
+                    heroHovered === 'event' ? 'opacity-75' : '',
+                  ].join(' ')}
+                >
+                  <span>{en.home.exploreServices}</span>
+                  <ArrowRight
+                    className={[
+                      'h-4 w-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+                      heroHovered === 'marketing' ? 'translate-x-1.5' : '',
+                    ].join(' ')}
+                    aria-hidden
+                  />
+                </span>
               </button>
             </div>
-          </div>
+        </section>
 
-          <HomeClientele />
-
+        <div className="border-t border-slate-200/80 bg-white/60 backdrop-blur-sm">
           <HomeAnimatedStats
             items={stats}
-            className="page-content-inset pb-20 sm:pb-24 md:pb-28 lg:pb-32"
+            className="page-content-inset py-12 sm:py-14 md:py-16"
           />
         </div>
+
+        <HomeClientele />
       </div>
     </>
   );

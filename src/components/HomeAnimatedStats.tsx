@@ -64,17 +64,14 @@ export default function HomeAnimatedStats({ items, className }: { items: HomeSta
 
   return (
     <div ref={rootRef} className={className}>
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 md:gap-x-12">
         {items.map((stat, index) => (
-          <div
-            key={stat.label}
-            className="rounded-xl border border-white/10 bg-slate-800/80 p-5 text-center shadow-xl backdrop-blur-sm sm:p-6"
-          >
+          <div key={stat.label} className="text-center">
             <div className="text-3xl font-bold tabular-nums text-primary sm:text-4xl" aria-live={visible ? 'polite' : 'off'}>
               {counts[index]}
               {parsed[index]?.suffix ?? ''}
             </div>
-            <div className="mt-2 text-sm text-white/70 sm:text-base">{stat.label}</div>
+            <div className="mt-2 text-sm text-slate-600 sm:text-base">{stat.label}</div>
           </div>
         ))}
       </div>
